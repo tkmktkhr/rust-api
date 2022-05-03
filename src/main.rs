@@ -8,7 +8,7 @@ async fn index() -> impl Responder {
 
 #[get("/{id}/{name}")]
 async fn sample_get(web::Path((id, name)): web::Path<(u32, String)>) -> impl Responder {
-    format!("Hello {}! id:{}", name, id)
+  HttpResponse::Ok().body(format!("Hello {}! id:{}", name, id))
 }
 
 #[actix_web::main]
