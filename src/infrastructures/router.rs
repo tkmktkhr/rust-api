@@ -5,11 +5,13 @@ pub mod router {
   #[get("/")]
   pub async fn index() -> impl Responder {
       // HttpResponse::Ok().body("Hello world!")
-      web::Json(json!({ "temperature": 42.3 }))
+      web::Json(json!({ "height": 174.3 }))
   }
 
   #[get("/{id}/{name}")]
-  pub async fn sample_get(web::Path((id, name)): web::Path<(u32, String)>) -> impl Responder {
+  // pub async fn sample_get(web::Path((id, name)): web::Path<(u32, String)>) -> impl Responder {
+  pub async fn sample_get(path: web::Path<(u32, String)>) -> impl Responder {
+    let (id, name) = path.into_inner();
     HttpResponse::Ok().body(format!("Hello {}! id:{}", name, id))
   }
 }
