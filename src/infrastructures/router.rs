@@ -1,10 +1,11 @@
 pub mod router {
   use actix_web::{get, web, HttpResponse, Responder};
+  use serde_json::json;
 
   #[get("/")]
   pub async fn index() -> impl Responder {
-      HttpResponse::Ok().body("Hello world!")
-      // web::Json(json!({ "temperature": 42.3 }))
+      // HttpResponse::Ok().body("Hello world!")
+      web::Json(json!({ "temperature": 42.3 }))
   }
 
   #[get("/{id}/{name}")]
