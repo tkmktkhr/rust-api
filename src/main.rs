@@ -1,5 +1,6 @@
 use actix_web::{App, HttpServer};
 
+mod entities;
 mod infrastructures;
 mod interfaces;
 
