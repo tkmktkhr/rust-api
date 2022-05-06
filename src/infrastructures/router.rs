@@ -1,5 +1,5 @@
-use crate::interfaces::requests::sample_post::User;
 use crate::entities::user;
+use crate::interfaces::requests::sample_post::User;
 use actix_web::{get, post, web, HttpResponse, Responder};
 use serde_json::json;
 
@@ -11,10 +11,10 @@ pub async fn index() -> impl Responder {
         first_name: "abc".to_string(),
         last_name: "def".to_string(),
         email: "a@example.com".to_string(),
-      };
-    println!("{:#?}",user);
+    };
+    println!("{:#?}", user);
     let full_name = user::User::full_name(&user);
-    println!("{:#?}",user::User::full_name(&user));
+    println!("{:#?}", user::User::full_name(&user));
     web::Json(json!({ "full_name": full_name }))
 }
 
@@ -26,7 +26,7 @@ pub async fn sample_get(path: web::Path<(u32, String)>) -> impl Responder {
 
 #[post("/users")]
 pub async fn sample_post(body: web::Json<User>) -> impl Responder {
-  let user_id = body.user_id;
-  let name = &body.name;
+    let user_id = body.user_id;
+    let name = &body.name;
     web::Json(json!({ "id": user_id + 1, "name": name }))
 }
