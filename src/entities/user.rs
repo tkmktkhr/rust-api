@@ -10,7 +10,14 @@ pub struct User {
 
 impl User {
     pub fn full_name(user: &User) -> String {
-        let ref first = *user.first_name;
-        first.to_owned() + &user.last_name
+        // Pattern1
+        // let ref first = *user.first_name;
+        // first.to_owned() + &user.last_name
+
+        // Pattern2
+        user.first_name.to_string() + &user.last_name
+
+        // Pattern3
+        // String::from(&user.first_name) + &user.last_name
     }
 }
