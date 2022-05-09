@@ -1,3 +1,7 @@
+extern crate dotenv;
+
+use dotenv::dotenv;
+use std::env;
 use actix_web::{App, HttpServer};
 
 mod entities;
@@ -6,6 +10,7 @@ mod interfaces;
 
 #[actix_web::main]
 async fn main() -> std::io::Result<()> {
+    dotenv().ok();
     use infrastructures::router;
 
     HttpServer::new(|| {
@@ -14,7 +19,7 @@ async fn main() -> std::io::Result<()> {
             .service(router::sample_get)
             .service(router::sample_post)
     })
-    .bind("0.0.0.0:8080")?
+    .bind(env::var("ADDRESS").unwrap())?
     .run()
     .await
 }
