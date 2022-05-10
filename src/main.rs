@@ -1,8 +1,8 @@
 extern crate dotenv;
 
+use actix_web::{App, HttpServer};
 use dotenv::dotenv;
 use std::env;
-use actix_web::{App, HttpServer};
 
 mod entities;
 mod infrastructures;
@@ -15,9 +15,10 @@ async fn main() -> std::io::Result<()> {
 
     HttpServer::new(|| {
         App::new()
+            .service(router::health_check)
             .service(router::index)
-            .service(router::sample_get)
-            .service(router::sample_post)
+            .service(router::get_user)
+            .service(router::create_user)
     })
     .bind(env::var("ADDRESS").unwrap())?
     .run()

@@ -3,13 +3,26 @@ use crate::interfaces::requests::create_user_request::User;
 use actix_web::{get, post, web, HttpResponse, Responder};
 use serde_json::json;
 
+#[get("/healthCheck")]
+pub async fn health_check() -> impl Responder {
+    HttpResponse::Ok().body("OK")
+}
+
 #[get("/")]
-pub async fn index() -> impl Responder {
-    // HttpResponse::Ok().body("Hello world!")
+pub async fn index(path: web::Path<(u32, String)>) -> impl Responder {
+    let (id, name) = path.into_inner();
+    HttpResponse::Ok().body(format!("Hello {}! id:{}", name, id))
+}
+
+#[get("/users/{id}/{name}")]
+pub async fn get_user(path: web::Path<(u32, String)>) -> impl Responder {
+    // TODO getUserController
+    let (_id, name) = path.into_inner();
+
     let user = user::User {
         id: Some(1),
         first_name: "abc".to_string(),
-        last_name: "def".to_string(),
+        last_name: name,
         email: "a@example.com".to_string(),
     };
     println!("{:#?}", user);
@@ -18,15 +31,10 @@ pub async fn index() -> impl Responder {
     web::Json(json!({ "full_name": full_name }))
 }
 
-#[get("/{id}/{name}")]
-pub async fn sample_get(path: web::Path<(u32, String)>) -> impl Responder {
-    let (id, name) = path.into_inner();
-    HttpResponse::Ok().body(format!("Hello {}! id:{}", name, id))
-}
-
 #[post("/users")]
-pub async fn sample_post(body: web::Json<User>) -> impl Responder {
+pub async fn create_user(body: web::Json<User>) -> impl Responder {
     let user_id = body.user_id;
     let name = &body.name;
+    // TODO createUserController
     web::Json(json!({ "id": user_id + 1, "name": name }))
 }
