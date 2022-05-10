@@ -38,3 +38,11 @@ pub async fn create_user(body: web::Json<User>) -> impl Responder {
     // TODO createUserController
     web::Json(json!({ "id": user_id + 1, "name": name }))
 }
+
+#[cfg(test)]
+mod tests {
+    #[test]
+    fn it_works() {
+        assert_eq!(2 + 2, 4);
+    }
+}
