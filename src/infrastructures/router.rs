@@ -1,5 +1,5 @@
 use crate::entities::user;
-use crate::interfaces::requests::sample_post::User;
+use crate::interfaces::requests::create_user_request::User;
 use actix_web::{get, post, web, HttpResponse, Responder};
 use serde_json::json;
 

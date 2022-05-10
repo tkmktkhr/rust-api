@@ -5,7 +5,7 @@ Rust api server
 
 `cargo fmt`
 
-## build
+## Build
 
 `cargo build`
 
