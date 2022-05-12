@@ -56,19 +56,22 @@ mod tests {
     }
 
     // #[test]
-    // #[actix_rt::test]
-    // async fn test_return_user() {
-    //     let name = String::from("rust");
+    #[actix_rt::test]
+    async fn test_return_user() {
+        let name = String::from("rust");
         
-    //     let expected_user = user::User {
-    //       id: Some(1),
-    //       first_name: "abc".to_string(),
-    //       last_name: "rust".to_string(),
-    //       email: "a@example.com".to_string(),
-    //     };
+        let expected_user = user::User {
+          id: Some(1),
+          first_name: "abc".to_string(),
+          last_name: "rust".to_string(),
+          email: "a@example.com".to_string(),
+        };
 
-    //     let user = return_user(&name);
+        let user = return_user(&name);
 
-    //     assert_eq!(user, expected_user);
-    // }
+        assert_eq!(user.id, expected_user.id);
+        assert_eq!(user.first_name, expected_user.first_name);
+        assert_eq!(user.last_name, expected_user.last_name);
+        assert_eq!(user.email, expected_user.email);
+    }
 }
