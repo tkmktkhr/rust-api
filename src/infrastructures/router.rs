@@ -19,12 +19,8 @@ pub async fn get_user(path: web::Path<(u32, String)>) -> impl Responder {
     // TODO getUserController
     let (_id, name) = path.into_inner();
 
-    let user = user::User {
-        id: Some(1),
-        first_name: "abc".to_string(),
-        last_name: name,
-        email: "a@example.com".to_string(),
-    };
+    let user = return_user(&name);
+
     println!("{:#?}", user);
     let full_name = user::User::full_name(&user);
     println!("{:#?}", user::User::full_name(&user));
@@ -39,10 +35,40 @@ pub async fn create_user(body: web::Json<User>) -> impl Responder {
     web::Json(json!({ "id": user_id + 1, "name": name }))
 }
 
+// sample function
+fn return_user(name: &String) -> user::User {
+    user::User {
+        id: Some(1),
+        first_name: "abc".to_string(),
+        last_name: name.to_owned(),
+        email: "a@example.com".to_string(),
+    }
+}
+
 #[cfg(test)]
 mod tests {
+    use super::*;
+    use crate::entities::user;
+
     #[test]
     fn it_works() {
         assert_eq!(2 + 2, 4);
     }
+
+    // #[test]
+    // #[actix_rt::test]
+    // async fn test_return_user() {
+    //     let name = String::from("rust");
+        
+    //     let expected_user = user::User {
+    //       id: Some(1),
+    //       first_name: "abc".to_string(),
+    //       last_name: "rust".to_string(),
+    //       email: "a@example.com".to_string(),
+    //     };
+
+    //     let user = return_user(&name);
+
+    //     assert_eq!(user, expected_user);
+    // }
 }
