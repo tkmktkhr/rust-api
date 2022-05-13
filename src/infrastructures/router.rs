@@ -1,4 +1,6 @@
 use crate::entities::user;
+use crate::interfaces::controllers::users::get::GetUsersController;
+use crate::interfaces::controllers::Controller;
 use crate::interfaces::requests::create_user_request::User;
 use actix_web::{get, post, web, HttpResponse, Responder};
 use serde_json::json;
@@ -16,7 +18,11 @@ pub async fn index(path: web::Path<(u32, String)>) -> impl Responder {
 
 #[get("/users/{id}/{name}")]
 pub async fn get_user(path: web::Path<(u32, String)>) -> impl Responder {
-    // TODO GetUsersController
+    let user_controller = GetUsersController {
+        name: String::from("GetUsers"),
+    };
+    user_controller.log();
+
     let (_id, name) = path.into_inner();
 
     let user = return_user(&name);
@@ -31,7 +37,7 @@ pub async fn get_user(path: web::Path<(u32, String)>) -> impl Responder {
 pub async fn create_user(body: web::Json<User>) -> impl Responder {
     let user_id = body.user_id;
     let name = &body.name;
-    // TODO GetUsersController
+    // TODO PostUsersController
     web::Json(json!({ "id": user_id + 1, "name": name }))
 }
 

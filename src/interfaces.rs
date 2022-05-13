@@ -1,2 +1,2 @@
-pub mod requests;
 pub mod controllers;
+pub mod requests;
