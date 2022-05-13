@@ -1,12 +1,12 @@
 extern crate dotenv;
 
-use actix_web::{App, HttpServer};
-use dotenv::dotenv;
-use std::env;
-
 mod entities;
 mod infrastructures;
 mod interfaces;
+
+use actix_web::{App, HttpServer};
+use dotenv::dotenv;
+use std::env;
 
 #[actix_web::main]
 async fn main() -> std::io::Result<()> {

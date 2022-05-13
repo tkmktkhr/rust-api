@@ -59,12 +59,12 @@ mod tests {
     #[actix_rt::test]
     async fn test_return_user() {
         let name = String::from("rust");
-        
+
         let expected_user = user::User {
-          id: Some(1),
-          first_name: "abc".to_string(),
-          last_name: "rust".to_string(),
-          email: "a@example.com".to_string(),
+            id: Some(1),
+            first_name: "abc".to_string(),
+            last_name: "rust".to_string(),
+            email: "a@example.com".to_string(),
         };
 
         let user = return_user(&name);
