@@ -16,7 +16,7 @@ pub async fn index(path: web::Path<(u32, String)>) -> impl Responder {
 
 #[get("/users/{id}/{name}")]
 pub async fn get_user(path: web::Path<(u32, String)>) -> impl Responder {
-    // TODO getUserController
+    // TODO GetUsersController
     let (_id, name) = path.into_inner();
 
     let user = return_user(&name);
@@ -31,7 +31,7 @@ pub async fn get_user(path: web::Path<(u32, String)>) -> impl Responder {
 pub async fn create_user(body: web::Json<User>) -> impl Responder {
     let user_id = body.user_id;
     let name = &body.name;
-    // TODO createUserController
+    // TODO GetUsersController
     web::Json(json!({ "id": user_id + 1, "name": name }))
 }
 
