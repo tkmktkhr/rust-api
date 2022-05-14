@@ -4,6 +4,7 @@ mod entities;
 mod infrastructures;
 mod interfaces;
 mod use_cases;
+mod utils;
 
 use actix_web::{App, HttpServer};
 use dotenv::dotenv;
