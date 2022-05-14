@@ -28,8 +28,9 @@ pub async fn get_user(path: web::Path<(u32, String)>) -> impl Responder {
     let user = return_user(&name);
 
     println!("{:#?}", user);
-    let full_name = user::User::full_name(&user);
-    println!("{:#?}", user::User::full_name(&user));
+    let full_name = user.full_name();
+    // let full_name = user::UserStruct::full_name(&user.first_name);
+    // println!("{:#?}", user::UserStruct::full_name(&user.first_name));
     web::Json(json!({ "full_name": full_name }))
 }
 
@@ -42,13 +43,13 @@ pub async fn create_user(body: web::Json<User>) -> impl Responder {
 }
 
 // sample function
-fn return_user(name: &String) -> user::User {
-    user::User {
-        id: Some(1),
-        first_name: "abc".to_string(),
-        last_name: name.to_owned(),
-        email: "a@example.com".to_string(),
-    }
+fn return_user(name: &String) -> user::UserStruct {
+    user::UserStruct::new(
+        1,
+        "abc".to_string(),
+        name.to_owned(),
+        "a@example.com".to_string(),
+    )
 }
 
 #[cfg(test)]
@@ -66,12 +67,12 @@ mod tests {
     async fn test_return_user() {
         let name = String::from("rust");
 
-        let expected_user = user::User {
-            id: Some(1),
-            first_name: "abc".to_string(),
-            last_name: "rust".to_string(),
-            email: "a@example.com".to_string(),
-        };
+        let expected_user = user::UserStruct::new(
+            1,
+            "abc".to_string(),
+            name.to_owned(),
+            "a@example.com".to_string(),
+        );
 
         let user = return_user(&name);
 

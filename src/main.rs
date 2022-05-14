@@ -3,6 +3,7 @@ extern crate dotenv;
 mod entities;
 mod infrastructures;
 mod interfaces;
+mod use_cases;
 
 use actix_web::{App, HttpServer};
 use dotenv::dotenv;
