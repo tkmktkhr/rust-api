@@ -6,7 +6,6 @@ pub mod string_util {
         }
     }
 
-    // pub fn check_string_return_string_or_none(original: &Option<String>) -> String {
     pub fn check_string_return_string_or_none(original: &Option<String>) -> Option<&String> {
         match original {
             None => None,

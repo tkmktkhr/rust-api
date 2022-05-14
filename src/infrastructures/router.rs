@@ -48,7 +48,8 @@ fn return_user(name: &String) -> user::UserStruct {
         1,
         "abc".to_string(),
         name.to_owned(),
-        "a@example.com".to_string(),
+        Some("a@example.com".to_string()),
+        // None,
     )
 }
 
@@ -71,7 +72,8 @@ mod tests {
             1,
             "abc".to_string(),
             name.to_owned(),
-            "a@example.com".to_string(),
+            // "a@example.com".to_string(),
+            None,
         );
 
         let user = return_user(&name);
