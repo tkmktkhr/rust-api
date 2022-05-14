@@ -1,1 +1,1 @@
-pub mod check_string;
+pub mod string_util;

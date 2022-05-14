@@ -1,4 +1,4 @@
-use crate::utils::check_string::check_string;
+use crate::utils::string_util::string_util::check_string_return_string;
 use serde::Deserialize;
 
 #[derive(Debug, Deserialize)]
@@ -21,8 +21,8 @@ impl UserStruct {
     }
 
     pub fn full_name(&self) -> String {
-        let fname = check_string(&self.first_name);
-        let lname = check_string(&self.last_name);
+        let fname = check_string_return_string(&self.first_name);
+        let lname = check_string_return_string(&self.last_name);
         fname + &lname.to_owned()
 
         // Pattern1
