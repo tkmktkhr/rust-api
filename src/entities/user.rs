@@ -36,9 +36,10 @@ impl UserStruct {
     }
 
     pub fn full_name(&self) -> String {
-        let received_first_name = &self.first_name;
-        let fname = check_type::string(received_first_name);
-        fname
+        // let received_first_name = &self.first_name;
+        let fname = check_type::string(&self.first_name);
+        let lname = check_type::string(&self.last_name);
+        fname + &lname.to_owned()
 
         // let fname: String = if received_first_name != None {
         //   Some(received_first_name)
