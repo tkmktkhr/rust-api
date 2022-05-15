@@ -29,8 +29,8 @@ pub async fn get_user(path: web::Path<(u32, String)>) -> impl Responder {
 
     println!("{:#?}", user);
     let full_name = user.full_name();
-    // let full_name = user::UserStruct::full_name(&user.first_name);
-    // println!("{:#?}", user::UserStruct::full_name(&user.first_name));
+    // let full_name = user::UserEntity::full_name(&user.first_name);
+    // println!("{:#?}", user::UserEntity::full_name(&user.first_name));
     web::Json(json!({ "full_name": full_name }))
 }
 
@@ -43,8 +43,8 @@ pub async fn create_user(body: web::Json<User>) -> impl Responder {
 }
 
 // sample function
-fn return_user(name: &String) -> user::UserStruct {
-    user::UserStruct::new(
+fn return_user(name: &String) -> user::UserEntity {
+    user::UserEntity::new(
         1,
         "abc".to_string(),
         name.to_owned(),
@@ -68,7 +68,7 @@ mod tests {
     async fn test_return_user() {
         let name = String::from("rust");
 
-        let expected_user = user::UserStruct::new(
+        let expected_user = user::UserEntity::new(
             1,
             "abc".to_string(),
             name.to_owned(),
