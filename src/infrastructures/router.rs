@@ -25,6 +25,8 @@ pub async fn get_user(path: web::Path<(u32, String)>) -> impl Responder {
 
     let (_id, name) = path.into_inner();
 
+    // pass input data to controller.
+
     let user = return_user(&name);
 
     println!("{:#?}", user);
