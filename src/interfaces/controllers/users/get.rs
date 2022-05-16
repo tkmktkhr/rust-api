@@ -1,5 +1,6 @@
 use crate::interfaces::controllers::called_log;
 use crate::interfaces::controllers::Controller;
+use crate::use_cases::users::find_user;
 
 // class without func
 pub struct GetUsersController {
@@ -17,34 +18,10 @@ impl Controller for GetUsersController {
         // var inputData = new UserCreateInputData(userName);
         // userCreateUseCase.Handle(inputData);
 
-        let input_data = FindUserInputData { id };
-        let output_data = FindUserInteractor::get_user_by_id(input_data);
+        let input_data = find_user::FindUserInputData { id };
+        let output_data = find_user::FindUserInteractor::get_user_by_id(input_data);
         output_data
         // let output_data = User{}
         //
     }
-}
-
-// DTO<Input>
-pub struct FindUserInputData {
-    pub id: u32,
-}
-// DTO<Output>
-pub struct FindUserOutputData {
-    pub id: u32,
-}
-
-// Use Case implementation
-struct FindUserInteractor {}
-
-impl FindUserInteractor {
-    fn get_user_by_id(input: FindUserInputData) {
-        let output = FindUserOutputData { id: input.id };
-        output;
-    }
-}
-
-// For View
-struct FindUserPresenter {
-    pub id: u32,
 }
