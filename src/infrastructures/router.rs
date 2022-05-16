@@ -18,9 +18,10 @@ pub async fn index(path: web::Path<(u32, String)>) -> impl Responder {
 
 #[get("/users/{id}/{name}")]
 pub async fn get_user(path: web::Path<(u32, String)>) -> impl Responder {
-    let user_controller = GetUsersController {
-        name: String::from("GetUsers"),
-    };
+    // let user_controller = GetUsersController {
+    //     name: String::from("GetUsers"),
+    // };
+    let user_controller = GetUsersController::new(String::from("GetUsers"));
     user_controller.log();
 
     let (_id, name) = path.into_inner();

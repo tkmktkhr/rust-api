@@ -11,9 +11,10 @@ pub struct FindUserOutputData {
 pub struct FindUserInteractor {}
 
 impl FindUserInteractor {
-    pub fn get_user_by_id(input: FindUserInputData) {
+    pub fn get_user_by_id(input: FindUserInputData) -> FindUserOutputData {
+        // Application Logic
         let output = FindUserOutputData { id: input.id };
-        output;
+        output
     }
 }
 
