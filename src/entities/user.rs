@@ -1,7 +1,7 @@
 use crate::utils::string_util::string_util;
-use serde::Deserialize;
+use serde::{Deserialize, Serialize};
 
-#[derive(Debug, Deserialize)]
+#[derive(Debug, Serialize, Deserialize)]
 pub struct UserEntity {
     pub id: Option<u32>,
     pub first_name: Option<String>,
@@ -24,10 +24,6 @@ impl UserEntity {
             email,
         }
     }
-
-    // fn check_email_format(&self) {
-
-    // }
 
     pub fn full_name(&self) -> String {
         let fname = string_util::check_string_return_string(&self.first_name);
