@@ -1,4 +1,5 @@
 pub mod string_util {
+  // this fn should be like this -> original.unwrap_or_default()
     pub fn check_string_return_string(original: &Option<String>) -> String {
         match original {
             None => "".to_string(),
