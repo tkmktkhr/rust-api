@@ -36,9 +36,19 @@ mod tests {
         assert_eq!(res, "str");
     }
 
-    // #[test]
-    #[actix_rt::test]
-    async fn test_return_user() {
-        assert_eq!(2 + 2, 4);
+    #[test]
+    fn check_string_return_string_or_none_return_none() {
+        let none = None;
+        let res = string_util::check_string_return_string_or_none(&none);
+        assert_eq!(res, None);
     }
+
+    // #[test]
+    // fn check_string_return_string_or_none_return_str() {
+    //     let str = String::from("str");
+    //     let expected_str = String::from("str");
+    //     let a = Some(&expected_str);
+    //     let res = string_util::check_string_return_string_or_none(&Some(str));
+    //     assert_eq!(res, a);
+    // }
 }
