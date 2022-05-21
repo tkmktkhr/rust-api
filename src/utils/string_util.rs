@@ -43,12 +43,12 @@ mod tests {
         assert_eq!(res, None);
     }
 
-    // #[test]
-    // fn check_string_return_string_or_none_return_str() {
-    //     let str = String::from("str");
-    //     let expected_str = String::from("str");
-    //     let a = Some(&expected_str);
-    //     let res = string_util::check_string_return_string_or_none(&Some(str));
-    //     assert_eq!(res, a);
-    // }
+    #[test]
+    fn check_string_return_string_or_none_return_str() {
+        let string = Some(String::from("str"));
+        let expected_str = String::from("str");
+        let a = Some(&expected_str);
+        let res = string_util::check_string_return_string_or_none(&string);
+        assert_eq!(res, a);
+    }
 }
