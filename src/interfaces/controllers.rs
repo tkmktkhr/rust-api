@@ -6,7 +6,6 @@ pub fn called_log(name: &String) {
 
 pub trait Controller {
     fn new(name: String) -> Self;
-    fn log(&self);
     fn find_one_by_id(id: u32) -> FindUserOutputData; // remove here but it will be error in Controller because there is no abstract concept in Rust.
 }
 

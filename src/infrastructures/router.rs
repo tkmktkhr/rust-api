@@ -20,9 +20,7 @@ pub async fn index(path: web::Path<(u32, String)>) -> impl Responder {
 
 #[get("/users/{id}/{name}")]
 pub async fn get_user(path: web::Path<(u32, String)>) -> web::Json<FindUserOutputData> {
-    // pub async fn get_user(path: web::Path<(u32, String)>) -> Result<Json<FindUserOutputData>> {
     let user_controller = GetUsersController::new(String::from("GetUsers"));
-    user_controller.log();
 
     let (id, _name) = path.into_inner();
 

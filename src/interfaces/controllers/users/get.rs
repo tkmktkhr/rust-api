@@ -12,13 +12,11 @@ pub struct GetUsersController {
 // methods impl in class
 impl Controller for GetUsersController {
     fn new(name: String) -> Self {
+        called_log(&name);
+
         Self {
             name: name.to_owned(),
         }
-    }
-
-    fn log(&self) {
-        called_log(&self.name)
     }
 
     fn find_one_by_id(id: u32) -> FindUserOutputData {
