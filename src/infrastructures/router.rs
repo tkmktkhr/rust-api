@@ -25,6 +25,7 @@ pub async fn get_user(path: web::Path<(u32, String)>) -> web::Json<FindUserOutpu
     let (id, _name) = path.into_inner();
 
     // pass input data to controller.
+    // let user = user_controller
     let user = GetUsersController::find_one_by_id(id);
     // let user = user_controller.find_one_by_id(id);
 

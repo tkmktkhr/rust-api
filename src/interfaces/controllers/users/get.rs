@@ -26,7 +26,5 @@ impl Controller for GetUsersController {
         let input_data = find_user::FindUserInputData { id };
         let output_data = find_user::FindUserInteractor::get_user_by_id(input_data);
         output_data
-        // let output_data = User{}
-        //
     }
 }
