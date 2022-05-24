@@ -1,7 +1,7 @@
-use crate::interfaces::controllers::Controller;
+use crate::interfaces::controllers::users::get::GetUsersController;
 use crate::interfaces::requests::create_user_request::User;
 use crate::{
-    interfaces::controllers::users::get::GetUsersController,
+    interfaces::controllers::users::get::GetUsersControllerTrait,
     use_cases::users::find_user::FindUserOutputData,
 };
 use actix_web::{get, post, web, HttpResponse, Responder, Result};
@@ -20,14 +20,16 @@ pub async fn index(path: web::Path<(u32, String)>) -> impl Responder {
 
 #[get("/users/{id}/{name}")]
 pub async fn get_user(path: web::Path<(u32, String)>) -> web::Json<FindUserOutputData> {
-    let user_controller = GetUsersController::new(String::from("GetUsers"));
+    // Type annotation is necessary in this case.
+    let user_controller: GetUsersController =
+        GetUsersControllerTrait::new(String::from("GetUsers"));
 
     let (id, _name) = path.into_inner();
 
     // pass input data to controller.
     // let user = user_controller
+    // let user = GetUsersControllerTrait::find_one_by_id(id);
     let user = GetUsersController::find_one_by_id(id);
-    // let user = user_controller.find_one_by_id(id);
 
     // let user = return_user(&name);
 
