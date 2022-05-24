@@ -1,5 +1,5 @@
 use crate::interfaces::controllers::called_log;
-use crate::interfaces::controllers::Controller;
+// use crate::interfaces::controllers::Controller;
 use crate::use_cases::users::find_user;
 use crate::use_cases::users::find_user::FindUserOutputData;
 
@@ -10,7 +10,7 @@ pub struct GetUsersController {
 }
 
 // methods impl in class
-impl Controller for GetUsersController {
+impl GetUsersControllerTrait for GetUsersController {
     fn new(name: String) -> Self {
         called_log(&name);
 
@@ -27,4 +27,9 @@ impl Controller for GetUsersController {
         let output_data = find_user::FindUserInteractor::get_user_by_id(input_data);
         output_data
     }
+}
+
+pub trait GetUsersControllerTrait {
+    fn new(name: String) -> Self;
+    fn find_one_by_id(id: u32) -> FindUserOutputData; // remove here but it will be error in Controller because there is no abstract concept in Rust.
 }
