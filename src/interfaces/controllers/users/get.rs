@@ -1,7 +1,7 @@
-use crate::interfaces::controllers::called_log;
-// use crate::interfaces::controllers::Controller;
-use crate::use_cases::users::find_user;
-use crate::use_cases::users::find_user::FindUserOutputData;
+use crate::{
+    interfaces::controllers::called_log, use_cases::users::find_user,
+    use_cases::users::find_user::FindUserOutputData,
+};
 
 // class without func
 pub struct GetUsersController {
