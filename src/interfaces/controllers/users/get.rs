@@ -19,7 +19,7 @@ impl GetUsersControllerTrait for GetUsersController {
         }
     }
 
-    fn find_one_by_id(id: u32) -> FindUserOutputData {
+    fn find_one_by_id(&self, id: u32) -> FindUserOutputData {
         // var inputData = new UserCreateInputData(userName);
         // userCreateUseCase.Handle(inputData);
 
@@ -29,7 +29,8 @@ impl GetUsersControllerTrait for GetUsersController {
     }
 }
 
+// トレイト(trait)とは任意の型となりうるSelfに対して定義されたメソッドの集合のこと
 pub trait GetUsersControllerTrait {
     fn new(name: String) -> Self;
-    fn find_one_by_id(id: u32) -> FindUserOutputData; // remove here but it will be error in Controller because there is no abstract concept in Rust.
+    fn find_one_by_id(&self, id: u32) -> FindUserOutputData; // remove here but it will be error in Controller because there is no abstract concept in Rust.
 }

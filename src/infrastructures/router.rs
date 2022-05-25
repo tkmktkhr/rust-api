@@ -4,7 +4,7 @@ use crate::{
     interfaces::controllers::users::get::GetUsersControllerTrait,
     use_cases::users::find_user::FindUserOutputData,
 };
-use actix_web::{get, post, web, HttpResponse, Responder, Result};
+use actix_web::{get, post, web, HttpResponse, Responder};
 use serde_json::json;
 
 #[get("/healthCheck")]
@@ -27,18 +27,11 @@ pub async fn get_user(path: web::Path<(u32, String)>) -> web::Json<FindUserOutpu
     let (id, _name) = path.into_inner();
 
     // pass input data to controller.
-    // let user = user_controller
-    // let user = GetUsersControllerTrait::find_one_by_id(id);
-    let user = GetUsersController::find_one_by_id(id);
+    let output = user_controller.find_one_by_id(id);
 
-    // let user = return_user(&name);
-
-    // println!("{:#?}", user);
-    // let full_name = user.full_name();
-    // let full_name = user::UserEntity::full_name(&user.first_name);
-    // println!("{:#?}", user::UserEntity::full_name(&user.first_name));
-    // Ok(web::Json(user))
-    web::Json(user)
+    let full_name = output.user.full_name();
+    println!("{}", full_name);
+    web::Json(output)
 }
 
 #[post("/users")]
@@ -48,14 +41,3 @@ pub async fn create_user(body: web::Json<User>) -> impl Responder {
     // TODO PostUsersController
     web::Json(json!({ "id": user_id + 1, "name": name }))
 }
-
-// // sample function
-// fn return_user(name: &String) -> user::UserEntity {
-//     user::UserEntity::new(
-//         1,
-//         "abc".to_string(),
-//         name.to_owned(),
-//         Some("a@example.com".to_string()),
-//         // None,
-//     )
-// }
