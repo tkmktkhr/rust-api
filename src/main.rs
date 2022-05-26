@@ -20,6 +20,7 @@ async fn main() -> std::io::Result<()> {
             .service(router::health_check)
             .service(router::index)
             .service(router::get_user)
+            .service(router::get_user_by_id)
             .service(router::create_user)
     })
     .bind(env::var("ADDRESS").unwrap())?
