@@ -3,13 +3,13 @@ use crate::{
     use_cases::users::find_user::FindUserOutputData,
 };
 
-// class without func
+// kind of class without func
 pub struct GetUsersController {
     pub name: String,
     // UseCase
 }
 
-// methods impl in class
+// methods impl in struct
 impl GetUsersControllerTrait for GetUsersController {
     fn new(name: String) -> Self {
         called_log(&name);
