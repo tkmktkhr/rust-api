@@ -1,12 +1,14 @@
 use crate::{entities::user, utils::string_util::string_util::check_string_return_string_or_none};
 use serde::{Deserialize, Serialize};
 
-// DTO<Input>
+// DTO<Input> validation should be here?
 pub struct FindUserInputData {
     pub id: u32,
 }
+
+// TODO Think about Serializer here. It seems to oppose to Clean Architecture.
 // DTO<Output>
-#[derive(Serialize, Deserialize)]
+#[derive(Debug, Serialize)]
 pub struct FindUserOutputData {
     pub user: user::UserEntity,
 }
@@ -21,6 +23,8 @@ impl FindUserInteractor {
         let output = FindUserOutputData { user };
         output
     }
+
+    // pub fn get_users(input: FindUserInputData) -> FindUserOutputData {}
 }
 
 // sample function

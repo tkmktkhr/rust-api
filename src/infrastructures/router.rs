@@ -20,14 +20,19 @@ pub async fn index(path: web::Path<(u32, String)>) -> impl Responder {
 
 #[get("/users/{id}")]
 pub async fn get_user_by_id(path: web::Path<u32>) -> web::Json<FindUserOutputData> {
+    // Controller Pattern 1
     // Type annotation(: GetUsersController) is necessary in this case.
     let user_controller: GetUsersController =
         GetUsersControllerTrait::new(String::from("get_user_by_id"));
+
+    // Controller Pattern 2
+    // let user_controller = GetUsersController::new(String::from("get_user_by_id"));
 
     let id = path.into_inner();
 
     // pass input data to controller.
     let output = user_controller.find_one_by_id(id);
+    println!("{:?}", output);
 
     let full_name = output.user.full_name();
     println!("{}", full_name);
