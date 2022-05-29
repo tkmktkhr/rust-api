@@ -25,6 +25,14 @@ impl GetUsersControllerTrait for GetUsersController {
 
         let input_data = find_user::FindUserInputData { id };
         let output_data = find_user::FindUserInteractor::get_user_by_id(input_data);
+        // if there is no user, return Not found.
+        // let output_data = match output_data {
+        //   Ok(user) => user,
+        //   Err(error) => {
+        //       // Error
+        //       panic!("There was a problem opening the file: {:?}", error)
+        //   },
+        // };
         output_data
     }
 }
