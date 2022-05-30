@@ -13,7 +13,13 @@ use std::env;
 #[actix_web::main]
 async fn main() -> std::io::Result<()> {
     dotenv().ok();
+    use diesel::mysql::MysqlConnection;
+    use diesel::prelude::*;
     use infrastructures::router;
+
+    let database_url = env::var("DATABASE_URL").expect("DATABASE_URL must be set");
+    MysqlConnection::establish(&database_url)
+        .expect(&format!("Error connecting to {}", database_url));
 
     HttpServer::new(|| {
         App::new()

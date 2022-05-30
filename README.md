@@ -22,3 +22,11 @@ Rust api server
 #### Docker Container Login
 
 `docker exec -it <CONTAINER ID> sh`
+
+## DB
+
+### MySQL
+
+Access from local pc.
+
+`docker exec -it <container id> /bin/sh`
