@@ -30,3 +30,8 @@ Rust api server
 Access from local pc.
 
 `docker exec -it <container id> /bin/sh`
+
+### Diesel
+
+`$ diesel setup`
+Creating migrations directory at: /Users/<user-name>/<path>/<repo-name>/migrations
