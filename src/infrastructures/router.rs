@@ -60,5 +60,16 @@ pub async fn create_user(body: web::Json<User>) -> impl Responder {
     let user_id = body.user_id;
     let name = &body.name;
     // TODO PostUsersController
-    web::Json(json!({ "id": user_id + 1, "name": name }))
+    let user1 = User {
+      user_id: user_id + 1,
+      name: name.to_string()
+    };
+    let user2 = User {
+      user_id: user_id + 2,
+      name: String::from("name2")
+    };
+    let users = [user1, user2];
+
+    // web::Json(json!({ "id": user_id + 1, "name": name }))
+    web::Json(users)
 }
