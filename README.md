@@ -14,6 +14,8 @@ Rust api server
 ### Local
 
 `cargo run`
+or
+`cargo watch -x run`
 
 ### Docker Container
 
