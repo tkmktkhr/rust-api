@@ -21,7 +21,7 @@ impl FindUserInteractor {
         // TODO Application Logic
         let user = return_user(input.id);
         let output = FindUserOutputData { user };
-        output
+        return output;
     }
 
     // pub fn get_users(input: FindUserInputData) -> FindUserOutputData {}
