@@ -5,7 +5,6 @@ use crate::{
     use_cases::users::find_user::FindUserOutputData,
 };
 use actix_web::{get, post, web, HttpResponse, Responder};
-use serde_json::json;
 
 #[get("/healthCheck")]
 pub async fn health_check() -> impl Responder {

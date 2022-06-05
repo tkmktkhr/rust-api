@@ -1,22 +1,23 @@
 use crate::{
-    interfaces::controllers::called_log, use_cases::users::find_user,
-    use_cases::users::find_user::FindUserOutputData,
+    interfaces::controllers::called_log,
+    use_cases::users::create_user,
+    use_cases::users::create_user::{CreateUserInteractor, CreateUserOutputData},
 };
 
 // kind of class without func
-pub struct GetUsersController {
+pub struct PostUsersController {
     pub name: String,
     // UseCase
 }
 
 // トレイト(trait)とは任意の型となりうるSelfに対して定義されたメソッドの集合のこと
-pub trait GetUsersControllerTrait {
+pub trait PostUsersControllerTrait {
     fn new(name: String) -> Self;
-    fn find_one_by_id(&self, id: u32) -> FindUserOutputData; // remove here but it will be error in Controller because there is no abstract concept in Rust.
+    fn create_user(&self, id: u32) -> CreateUserOutputData; // remove here but it will be error in Controller because there is no abstract concept in Rust.
 }
 
 // methods impl in struct
-impl GetUsersControllerTrait for GetUsersController {
+impl PostUsersControllerTrait for PostUsersController {
     fn new(name: String) -> Self {
         called_log(&name);
 
@@ -25,12 +26,12 @@ impl GetUsersControllerTrait for GetUsersController {
         }
     }
 
-    fn find_one_by_id(&self, id: u32) -> FindUserOutputData {
+    fn create_user(&self, id: u32) -> CreateUserOutputData {
         // var inputData = new UserCreateInputData(userName);
         // userCreateUseCase.Handle(inputData);
 
-        let input_data = find_user::FindUserInputData { id };
-        let output_data = find_user::FindUserInteractor::get_user_by_id(input_data);
+        let input_data = create_user::CreateUserInputData { id };
+        let output_data = create_user::CreateUserInteractor::get_user_by_id(input_data);
         // if there is no user, return Not found.
         // let output_data = match output_data {
         //   Ok(user) => user,
