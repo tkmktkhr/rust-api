@@ -1,7 +1,7 @@
 use crate::{
     interfaces::controllers::users::get::GetUsersController,
     interfaces::controllers::users::get::GetUsersControllerTrait,
-    interfaces::requests::create_user_request::User,
+    interfaces::requests::users::create_user_request::User,
     use_cases::users::find_user::FindUserOutputData,
 };
 use actix_web::{get, post, web, HttpResponse, Responder};
