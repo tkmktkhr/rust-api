@@ -1,7 +1,7 @@
 use crate::{
-    interfaces::controllers::users::get::GetUsersController,
+    entities::user::UserEntity, interfaces::controllers::users::get::GetUsersController,
     interfaces::controllers::users::get::GetUsersControllerTrait,
-    interfaces::requests::users::create_user_request::User,
+    interfaces::requests::users::create_user_request::CreateUserReq,
     use_cases::users::find_user::FindUserOutputData,
 };
 use actix_web::{get, post, web, HttpResponse, Responder};
@@ -55,17 +55,21 @@ pub async fn get_user(path: web::Path<(u32, String)>) -> web::Json<FindUserOutpu
 }
 
 #[post("/users")]
-pub async fn create_user(body: web::Json<User>) -> impl Responder {
+pub async fn create_user(body: web::Json<CreateUserReq>) -> impl Responder {
     let user_id = body.user_id;
     let name = &body.name;
     // TODO PostUsersController
-    let user1 = User {
-        user_id: user_id + 1,
-        name: name.to_string(),
+    let user1 = UserEntity {
+        id: Some(user_id + 1),
+        first_name: Some(name.to_string()),
+        last_name: Some(name.to_string()),
+        email: Some(name.to_string()),
     };
-    let user2 = User {
-        user_id: user_id + 2,
-        name: String::from("name2"),
+    let user2 = UserEntity {
+        id: Some(user_id + 2),
+        first_name: Some(String::from("first_name")),
+        last_name: Some(String::from("last_name")),
+        email: Some(String::from("example.com")),
     };
     let users = [user1, user2];
 
