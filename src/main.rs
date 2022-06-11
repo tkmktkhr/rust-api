@@ -17,6 +17,7 @@ async fn main() -> std::io::Result<()> {
     use diesel::prelude::*;
     use infrastructures::router;
 
+    // REFACTOR Connection pool.
     let database_url = env::var("DATABASE_URL").expect("DATABASE_URL must be set");
     MysqlConnection::establish(&database_url)
         .expect(&format!("Error connecting to {}", database_url));
