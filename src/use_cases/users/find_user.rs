@@ -18,7 +18,7 @@ pub struct FindUserInteractor {}
 
 impl FindUserInteractor {
     pub fn get_user_by_id(input: FindUserInputData) -> FindUserOutputData {
-        // TODO Application Logic is here
+        // NOTE Application Logic is here
 
         // FIXME Dependency Inversion principle.
         let user = get_user(input.id);

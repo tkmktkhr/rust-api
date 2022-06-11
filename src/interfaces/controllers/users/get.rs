@@ -19,10 +19,7 @@ impl GetUsersControllerTrait for GetUsersController {
     fn new(name: String) -> Self {
         called_log(&name);
 
-        Self {
-            name,
-            // name: name.to_owned(),
-        }
+        Self { name }
     }
 
     fn find_one_by_id(&self, id: u32) -> FindUserOutputData {
