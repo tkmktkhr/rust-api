@@ -31,7 +31,7 @@ impl PostUsersControllerTrait for PostUsersController {
         // userCreateUseCase.Handle(inputData);
 
         let input_data = create_user::CreateUserInputData { id };
-        let output_data = create_user::CreateUserInteractor::get_user_by_id(input_data);
+        let output_data = create_user::CreateUserInteractor::create(input_data);
         // if there is no user, return Not found.
         // let output_data = match output_data {
         //   Ok(user) => user,

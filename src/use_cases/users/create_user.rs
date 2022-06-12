@@ -17,18 +17,16 @@ pub struct CreateUserOutputData {
 pub struct CreateUserInteractor {}
 
 impl CreateUserInteractor {
-    pub fn get_user_by_id(input: CreateUserInputData) -> CreateUserOutputData {
+    pub fn create(input: CreateUserInputData) -> CreateUserOutputData {
         // TODO Application Logic
-        let user = return_user(input.id);
+        let user = create_user(input.id);
         let output = CreateUserOutputData { user };
         output
     }
-
-    // pub fn get_users(input: CreateUserInputData) -> CreateUserOutputData {}
 }
 
-// sample function
-fn return_user(id: u32) -> user::UserEntity {
+fn create_user(id: u32) -> user::UserEntity {
+    // TODO db access.
     user::UserEntity::new(
         id,
         "abc".to_string(),
