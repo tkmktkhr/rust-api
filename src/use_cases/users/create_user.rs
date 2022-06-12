@@ -37,8 +37,3 @@ fn return_user(id: u32) -> user::UserEntity {
         // None,
     )
 }
-
-// For View
-struct CreateUserPresenter {
-    pub id: u32,
-}
