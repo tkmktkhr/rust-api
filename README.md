@@ -37,3 +37,7 @@ Access from local pc.
 
 `$ diesel setup`
 Creating migrations directory at: /Users/<user-name>/<path>/<repo-name>/migrations
+
+#### migration run
+
+`diesel migration run`
