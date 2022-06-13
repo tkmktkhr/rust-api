@@ -21,9 +21,7 @@ impl PostUsersControllerTrait for PostUsersController {
     fn new(name: String) -> Self {
         called_log(&name);
 
-        Self {
-            name: name.to_owned(),
-        }
+        Self { name }
     }
 
     fn create_user(&self, id: u32) -> CreateUserOutputData {
