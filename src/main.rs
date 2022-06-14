@@ -3,6 +3,7 @@ extern crate dotenv;
 mod entities;
 mod infrastructures;
 mod interfaces;
+mod schema;
 mod use_cases;
 mod utils;
 
