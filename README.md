@@ -15,7 +15,7 @@ Rust api server
 
 `cargo run`
 or
-`cargo watch -x run`
+`cargo run watch -x`
 
 ### Docker Container
 
