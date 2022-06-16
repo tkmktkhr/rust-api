@@ -25,19 +25,8 @@ impl PostUsersControllerTrait for PostUsersController {
     }
 
     fn create_user(&self, id: u32) -> CreateUserOutputData {
-        // var inputData = new UserCreateInputData(userName);
-        // userCreateUseCase.Handle(inputData);
-
         let input_data = create_user::CreateUserInputData { id };
         let output_data = create_user::CreateUserInteractor::create(input_data);
-        // if there is no user, return Not found.
-        // let output_data = match output_data {
-        //   Ok(user) => user,
-        //   Err(error) => {
-        //       // Error
-        //       panic!("There was a problem opening the file: {:?}", error)
-        //   },
-        // };
         output_data
     }
 }
