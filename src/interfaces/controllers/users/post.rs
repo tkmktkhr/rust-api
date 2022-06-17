@@ -26,7 +26,6 @@ impl PostUsersControllerTrait for PostUsersController {
 
     fn create_user(&self, id: u32) -> CreateUserOutputData {
         let input_data = create_user::CreateUserInputData { id };
-        let output_data = create_user::CreateUserInteractor::create(input_data);
-        output_data
+        return create_user::CreateUserInteractor::create(input_data);
     }
 }
