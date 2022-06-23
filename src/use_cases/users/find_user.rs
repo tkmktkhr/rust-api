@@ -1,4 +1,4 @@
-use crate::{entities::user, utils::string_util::string_util::check_string_return_string_or_none};
+use crate::entities::user::UserEntity;
 use serde::{Deserialize, Serialize};
 
 // DTO<Input> validation should be here?
@@ -10,7 +10,7 @@ pub struct FindUserInputData {
 // DTO<Output>
 #[derive(Debug, Serialize)]
 pub struct FindUserOutputData {
-    pub user: user::UserEntity,
+    pub user: UserEntity,
 }
 
 // Use Case implementation
@@ -30,8 +30,8 @@ impl FindUserInteractor {
 }
 
 // sample function
-fn get_user(id: u32) -> user::UserEntity {
-    user::UserEntity::new(
+fn get_user(id: u32) -> UserEntity {
+    UserEntity::new(
         id,
         "abc".to_string(),
         " def".to_owned(),
@@ -48,7 +48,7 @@ struct FindUserPresenter {
 #[cfg(test)]
 mod tests {
     use super::*;
-    use crate::entities::user;
+    use crate::entities::user::UserEntity;
 
     #[test]
     fn it_works() {
@@ -61,7 +61,7 @@ mod tests {
         let name = String::from(" def");
         let id = 1;
 
-        let expected_user = user::UserEntity::new(
+        let expected_user = UserEntity::new(
             1,
             "abc".to_string(),
             name.to_owned(),
