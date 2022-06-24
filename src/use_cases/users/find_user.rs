@@ -35,8 +35,8 @@ fn get_user(id: u32) -> UserEntity {
         id,
         "abc".to_string(),
         " def".to_owned(),
-        Some("a@example.com".to_string()),
-        // None,
+        // Some("a@example.com".to_string()),
+        None,
     )
 }
 
