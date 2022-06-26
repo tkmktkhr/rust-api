@@ -3,10 +3,8 @@ use crate::{
     use_cases::users::create_user::CreateUserOutputData,
 };
 
-// kind of class without func
 pub struct PostUsersController {
     pub name: String,
-    // UseCase
 }
 
 pub trait PostUsersControllerTrait {
@@ -14,7 +12,6 @@ pub trait PostUsersControllerTrait {
     fn create_user(&self, id: u32) -> CreateUserOutputData; // remove here but it will be error in Controller because there is no abstract concept in Rust.
 }
 
-// methods impl in struct
 impl PostUsersControllerTrait for PostUsersController {
     fn new(name: String) -> Self {
         called_log(&name);
