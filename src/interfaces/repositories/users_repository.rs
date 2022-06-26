@@ -9,7 +9,6 @@ pub trait UserRepositoryTrait {
     // fn find_one_by_id(&self, id: u32) -> FindUserOutputData; // remove here but it will be error in Controller because there is no abstract concept in Rust.
 }
 
-// methods impl in struct
 impl UserRepositoryTrait for UserRepository {
     fn new(name: String) -> Self {
         called_log(&name);
