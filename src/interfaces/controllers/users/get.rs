@@ -1,6 +1,11 @@
+// #[macro_use]
+// use crate::diesel;
+// use crate::infrastructures::models::user::*;
+// use diesel::prelude::*;
+
 use crate::{
-    interfaces::controllers::called_log, use_cases::users::find_user,
-    use_cases::users::find_user::FindUserOutputData,
+    infrastructures::models::user::User, interfaces::controllers::called_log,
+    use_cases::users::find_user, use_cases::users::find_user::FindUserOutputData,
 };
 
 // kind of class without func
@@ -23,12 +28,43 @@ impl GetUsersControllerTrait for GetUsersController {
     }
 
     fn find_one_by_id(&self, id: u32) -> FindUserOutputData {
+        // use self::schema::users::dsl::*;
+        use rust_api::schema::users::dsl::users;
+
+        // ここから消す-------------------------------
+        use dotenv::dotenv;
+        use std::env;
+        dotenv().ok();
+        // use diesel::mysql::MysqlConnection;
+        use diesel::prelude::*;
+
+        let database_url = env::var("DATABASE_URL").expect("DATABASE_URL must be set");
+        let connection = MysqlConnection::establish(&database_url)
+            .expect(&format!("Error connecting to {}", database_url));
+        // ここまで消す-------------------------------
+
         // NOTE Clean Architecture Sample.
         // var inputData = new UserCreateInputData(userName);
         // userCreateUseCase.Handle(inputData);
 
         let input_data = find_user::FindUserInputData { id };
         let output_data = find_user::FindUserInteractor::get_user_by_id(input_data);
+        let results = users.load::<User>(&connection);
+        // let results = users
+        //     .limit(5)
+        //     .load::<User>(&connection)
+        //     .expect("Error loading posts");
+        println!("------------------------\n");
+        println!("Displaying {:?} users", &results);
+        // for user in results {
+        //     println!("{}", user.id);
+        //     println!("----------\n");
+        //     println!("{}", user.body);
+        //     println!("{}", user.first_name);
+        //     println!("{}", user.last_name);
+        //     println!("{}", user.email);
+        // }
+        println!("------------------------\n");
         // if there is no user, return Not found.
         // let output_data = match output_data {
         //     Ok(user) => user,
