@@ -67,17 +67,11 @@ pub async fn create_user(body: web::Json<CreateUserReq>) -> impl Responder {
     };
     let user2 = UserEntity {
         id: Some(user_id + 2),
-        first_name: Some(String::from("first_name")),
-        last_name: Some(String::from("last_name")),
-        email: Some(String::from("example.com")),
-    };
-    let user3 = UserEntity {
-        id: Some(user_id + 2),
         first_name: Some(String::from("first")),
         last_name: Some(String::from("last")),
         email: Some(String::from("sample@email.com")),
     };
-    let users = [user1, user2, user3];
+    let users = [user1, user2];
 
     web::Json(users)
 }
