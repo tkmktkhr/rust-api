@@ -1,8 +1,6 @@
 use diesel::{Insertable, Queryable};
 
 // NOTE #[derive(Queryable)] will generate all of the code needed to load a Post struct from a SQL query.
-// #[derive(Queryable, Insertable)]
-// #[table_name = "users"]
 #[derive(Queryable, PartialEq, Debug)]
 pub struct User {
     pub id: u32,
