@@ -45,29 +45,15 @@ impl GetUsersControllerTrait for GetUsersController {
         let input_data = find_user::FindUserInputData { id };
         let output_data = find_user::FindUserInteractor::get_user_by_id(input_data);
         let results = users.load::<User>(&connection);
-        // let results = users
-        //     .limit(5)
-        //     .load::<User>(&connection)
-        //     .expect("Error loading posts");
-        println!("------------------------\n");
-        println!("Displaying {:?} users", &results);
-        // for user in results {
-        //     println!("{}", user.id);
-        //     println!("----------\n");
-        //     println!("{}", user.body);
-        //     println!("{}", user.first_name);
-        //     println!("{}", user.last_name);
-        //     println!("{}", user.email);
-        // }
-        println!("------------------------\n");
         // if there is no user, return Not found.
-        // let output_data = match output_data {
-        //     Ok(user) => user,
-        //     Err(error) => {
-        //         // Error
-        //         panic!("There was a problem opening the file: {:?}", error)
-        //     }
-        // };
+        let results = match results {
+            Ok(user) => user,
+            Err(error) => {
+                // Error
+                panic!("There was not that user: {:?}", error)
+            }
+        };
+        // TODO return results value
         output_data
     }
 }
