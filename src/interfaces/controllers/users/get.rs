@@ -1,6 +1,6 @@
 use crate::{
-    infrastructures::models::user::User, interfaces::controllers::called_log,
-    use_cases::users::find_user, use_cases::users::find_user::FindUserOutputData,
+    interfaces::controllers::called_log, use_cases::users::find_user,
+    use_cases::users::find_user::FindUserOutputData,
 };
 
 // kind of class without func
@@ -23,20 +23,19 @@ impl GetUsersControllerTrait for GetUsersController {
     }
 
     fn find_one_by_id(&self, id: u32) -> FindUserOutputData {
-        // use self::schema::users::dsl::*;
-        use rust_api::schema::users::dsl::users;
+        // use rust_api::schema::users::dsl::users;
 
-        // ここから消す-------------------------------
-        use dotenv::dotenv;
-        use std::env;
-        dotenv().ok();
-        // use diesel::mysql::MysqlConnection;
-        use diesel::prelude::*;
+        // // ここから消す-------------------------------
+        // use dotenv::dotenv;
+        // use std::env;
+        // dotenv().ok();
+        // // use diesel::mysql::MysqlConnection;
+        // use diesel::prelude::*;
 
-        let database_url = env::var("DATABASE_URL").expect("DATABASE_URL must be set");
-        let connection = MysqlConnection::establish(&database_url)
-            .expect(&format!("Error connecting to {}", database_url));
-        // ここまで消す-------------------------------
+        // let database_url = env::var("DATABASE_URL").expect("DATABASE_URL must be set");
+        // let connection = MysqlConnection::establish(&database_url)
+        //     .expect(&format!("Error connecting to {}", database_url));
+        // // ここまで消す-------------------------------
 
         // NOTE Clean Architecture Sample.
         // var inputData = new UserCreateInputData(userName);
@@ -44,15 +43,15 @@ impl GetUsersControllerTrait for GetUsersController {
 
         let input_data = find_user::FindUserInputData { id };
         let output_data = find_user::FindUserInteractor::get_user_by_id(input_data);
-        let results = users.load::<User>(&connection);
-        // if there is no user, return Not found.
-        let results = match results {
-            Ok(user) => user,
-            Err(error) => {
-                // Error
-                panic!("There was not that user: {:?}", error)
-            }
-        };
+        // let results = users.load::<User>(&connection);
+        // // if there is no user, return Not found.
+        // let user = match results {
+        //     Ok(user) => user,
+        //     Err(error) => {
+        //         // Error
+        //         panic!("There was not that user: {:?}", error)
+        //     }
+        // };
         // TODO return results value
         output_data
     }
