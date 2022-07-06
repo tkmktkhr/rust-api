@@ -1,4 +1,5 @@
 use crate::entities::user::UserEntity;
+use crate::infrastructures::models::user::User;
 use serde::{Deserialize, Serialize};
 
 // DTO<Input> validation should be here?
@@ -18,10 +19,36 @@ pub struct FindUserInteractor {}
 
 impl FindUserInteractor {
     pub fn get_user_by_id(input: FindUserInputData) -> FindUserOutputData {
+        // ここから消す-------------------------------
+        use rust_api::schema::users::dsl::users;
+
+        use dotenv::dotenv;
+        use std::env;
+        dotenv().ok();
+        // use diesel::mysql::MysqlConnection;
+        use diesel::prelude::*;
+
+        let database_url = env::var("DATABASE_URL").expect("DATABASE_URL must be set");
+        let connection = MysqlConnection::establish(&database_url)
+            .expect(&format!("Error connecting to {}", database_url));
+        // ここまで消す-------------------------------
         // NOTE Application Logic is here
 
         // FIXME Dependency Inversion principle.
         let user = get_user(input.id);
+        let results = users.load::<User>(&connection);
+        // if there is no user, return Not found.
+        let user = match results {
+            Ok(user) => user,
+            Err(error) => {
+                // TODO return results as a zero value.
+                panic!("There was not that user: {:?}", error)
+            }
+        };
+
+        // let user_output = FindUserOutputData {
+        //   user: UserEntity { id:, first_name: (), last_name: (), email: () }
+        // }
         let output = FindUserOutputData { user };
         return output;
     }
