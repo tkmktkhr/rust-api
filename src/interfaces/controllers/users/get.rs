@@ -23,35 +23,13 @@ impl GetUsersControllerTrait for GetUsersController {
     }
 
     fn find_one_by_id(&self, id: u32) -> FindUserOutputData {
-        // use rust_api::schema::users::dsl::users;
-
-        // // ここから消す-------------------------------
-        // use dotenv::dotenv;
-        // use std::env;
-        // dotenv().ok();
-        // // use diesel::mysql::MysqlConnection;
-        // use diesel::prelude::*;
-
-        // let database_url = env::var("DATABASE_URL").expect("DATABASE_URL must be set");
-        // let connection = MysqlConnection::establish(&database_url)
-        //     .expect(&format!("Error connecting to {}", database_url));
-        // // ここまで消す-------------------------------
-
         // NOTE Clean Architecture Sample.
         // var inputData = new UserCreateInputData(userName);
         // userCreateUseCase.Handle(inputData);
 
         let input_data = find_user::FindUserInputData { id };
         let output_data = find_user::FindUserInteractor::get_user_by_id(input_data);
-        // let results = users.load::<User>(&connection);
-        // // if there is no user, return Not found.
-        // let user = match results {
-        //     Ok(user) => user,
-        //     Err(error) => {
-        //         // Error
-        //         panic!("There was not that user: {:?}", error)
-        //     }
-        // };
+
         // TODO return results value
         output_data
     }
