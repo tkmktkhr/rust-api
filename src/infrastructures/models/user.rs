@@ -1,4 +1,4 @@
-use diesel::{Insertable, Queryable};
+use diesel::Queryable;
 
 // NOTE #[derive(Queryable)] will generate all of the code needed to load a Post struct from a SQL query.
 #[derive(Queryable, PartialEq, Debug)]
