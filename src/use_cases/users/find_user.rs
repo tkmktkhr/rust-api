@@ -1,6 +1,6 @@
 use crate::entities::user::UserEntity;
 use crate::infrastructures::models::user::User;
-use serde::{Deserialize, Serialize};
+use serde::Serialize;
 
 // DTO<Input> validation should be here?
 pub struct FindUserInputData {
