@@ -19,7 +19,7 @@ pub struct FindUserInteractor {}
 
 impl FindUserInteractor {
     pub fn get_user_by_id(input: FindUserInputData) -> FindUserOutputData {
-        // ここから消す-------------------------------
+        // REFACTOR DELETE FROM HERE-------------------------------
         use rust_api::schema::users::dsl::users;
 
         use dotenv::dotenv;
@@ -31,7 +31,7 @@ impl FindUserInteractor {
         let database_url = env::var("DATABASE_URL").expect("DATABASE_URL must be set");
         let connection = MysqlConnection::establish(&database_url)
             .expect(&format!("Error connecting to {}", database_url));
-        // ここまで消す-------------------------------
+        // REFACTOR DELETE UNTIL HERE-------------------------------
         // NOTE Application Logic is here
 
         // FIXME Dependency Inversion principle.
@@ -46,10 +46,15 @@ impl FindUserInteractor {
             }
         };
 
-        // let user_output = FindUserOutputData {
-        //   user: UserEntity { id:, first_name: (), last_name: (), email: () }
-        // }
-        let output = FindUserOutputData { user };
+        let user_output = FindUserOutputData {
+            user: UserEntity {
+                id: Some(user[0].id),
+                first_name: Some(user[0].first_name),
+                last_name: user[0].last_name,
+                email: user[0].email,
+            },
+        };
+        let output = FindUserOutputData { user: user_output };
         return output;
     }
 
