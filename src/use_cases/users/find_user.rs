@@ -38,7 +38,7 @@ impl FindUserInteractor {
         let user = get_user(input.id);
         let results = users.load::<User>(&connection);
         // if there is no user, return Not found.
-        let user = match results {
+        let user_vec = match results {
             Ok(user) => user,
             Err(error) => {
                 // TODO return results as a zero value.
@@ -46,13 +46,14 @@ impl FindUserInteractor {
             }
         };
 
-        let user_output = FindUserOutputData {
-            user: UserEntity {
-                id: Some(user[0].id),
-                first_name: Some(user[0].first_name),
-                last_name: user[0].last_name,
-                email: user[0].email,
-            },
+        // TODO fix.
+        let user_entity_output = &user_vec[0];
+
+        let user_output = UserEntity {
+            id: Some(user_entity_output.id),
+            first_name: Some(user_entity_output.first_name),
+            last_name: user_entity_output.last_name,
+            email: user_entity_output.email,
         };
         let output = FindUserOutputData { user: user_output };
         return output;
