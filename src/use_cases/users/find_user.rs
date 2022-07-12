@@ -35,7 +35,7 @@ impl FindUserInteractor {
         // NOTE Application Logic is here
 
         // FIXME Dependency Inversion principle.
-        let user = get_user(input.id);
+        // let user = get_user(input.id);
         let results = users.load::<User>(&connection);
         // if there is no user, return Not found.
         let user_vec = match results {
