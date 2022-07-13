@@ -18,7 +18,7 @@ pub struct FindUserOutputData {
 pub struct FindUserInteractor {}
 
 impl FindUserInteractor {
-    pub fn get_user_by_id(input: FindUserInputData) -> FindUserOutputData {
+    pub fn get_user_by_id(_input: FindUserInputData) -> FindUserOutputData {
         // REFACTOR DELETE FROM HERE-------------------------------
         use rust_api::schema::users::dsl::users;
 
