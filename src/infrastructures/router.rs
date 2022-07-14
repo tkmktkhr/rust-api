@@ -29,7 +29,6 @@ pub async fn get_user_by_id(path: web::Path<u32>) -> web::Json<FindUserOutputDat
 
     let id = path.into_inner();
 
-    // pass input data to controller.
     let output = user_controller.find_one_by_id(id);
     println!("{:?}", output);
 
