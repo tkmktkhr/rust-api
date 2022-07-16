@@ -51,9 +51,9 @@ impl FindUserInteractor {
 
         let user_output = UserEntity {
             id: Some(user_entity_output.id),
-            first_name: Some(user_entity_output.first_name),
-            last_name: user_entity_output.last_name,
-            email: user_entity_output.email,
+            first_name: Some(user_entity_output.first_name.clone()),
+            last_name: user_entity_output.last_name.clone(),
+            email: user_entity_output.email.clone(),
         };
         let output = FindUserOutputData { user: user_output };
         return output;
