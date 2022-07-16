@@ -61,6 +61,17 @@ impl FindUserInteractor {
     // pub fn get_users(input: FindUserInputData) -> FindUserOutputData {}
 }
 
+// sample function
+fn get_user(id: u32) -> UserEntity {
+    UserEntity::new(
+        id,
+        "abc".to_string(),
+        " def".to_owned(),
+        // Some("a@example.com".to_string()),
+        None,
+    )
+}
+
 // For View
 struct FindUserPresenter {
     pub id: u32,
