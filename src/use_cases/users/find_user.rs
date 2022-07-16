@@ -35,7 +35,6 @@ impl FindUserInteractor {
         // NOTE Application Logic is here
 
         // FIXME Dependency Inversion principle.
-        // let user = get_user(input.id);
         let results = users.load::<User>(&connection);
         // if there is no user, return Not found.
         let user_vec = match results {
@@ -60,17 +59,6 @@ impl FindUserInteractor {
     }
 
     // pub fn get_users(input: FindUserInputData) -> FindUserOutputData {}
-}
-
-// sample function
-fn get_user(id: u32) -> UserEntity {
-    UserEntity::new(
-        id,
-        "abc".to_string(),
-        " def".to_owned(),
-        // Some("a@example.com".to_string()),
-        None,
-    )
 }
 
 // For View
