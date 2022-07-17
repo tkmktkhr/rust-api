@@ -36,7 +36,6 @@ impl FindUserInteractor {
 
         // FIXME Dependency Inversion principle.
         let results = users.load::<User>(&connection);
-        // if there is no user, return Not found.
         let user_vec = match results {
             Ok(user) => user,
             Err(error) => {
@@ -44,6 +43,13 @@ impl FindUserInteractor {
                 panic!("There was not that user: {:?}", error)
             }
         };
+
+        println!("{:?}", user_vec);
+        if &user_vec.len() == 0 {
+            return FindUserOutputData {
+                user: get_user(1000),
+            };
+        }
 
         // TODO fix.
         let user_entity_output = &user_vec[0];
