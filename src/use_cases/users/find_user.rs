@@ -25,7 +25,6 @@ impl FindUserInteractor {
         use dotenv::dotenv;
         use std::env;
         dotenv().ok();
-        // use diesel::mysql::MysqlConnection;
         use diesel::prelude::*;
 
         let database_url = env::var("DATABASE_URL").expect("DATABASE_URL must be set");
@@ -45,11 +44,13 @@ impl FindUserInteractor {
         };
 
         println!("{:?}", user_vec);
-        if &user_vec.len() == 0 {
-            return FindUserOutputData {
-                user: get_user(1000),
-            };
-        }
+        println!("{:?}", user_vec.truthy());
+
+        // if &user_vec.len() == 0 {
+        //     return FindUserOutputData {
+        //         user: get_user(1000),
+        //     };
+        // }
 
         // TODO fix.
         let user_entity_output = &user_vec[0];
