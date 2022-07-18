@@ -44,13 +44,13 @@ impl FindUserInteractor {
         };
 
         println!("{:?}", user_vec);
-        println!("{:?}", user_vec.truthy());
+        println!("{:?}", user_vec.len());
 
-        // if &user_vec.len() == 0 {
-        //     return FindUserOutputData {
-        //         user: get_user(1000),
-        //     };
-        // }
+        if user_vec.is_empty() {
+            return FindUserOutputData {
+                user: get_user(1000),
+            };
+        }
 
         // TODO fix.
         let user_entity_output = &user_vec[0];
