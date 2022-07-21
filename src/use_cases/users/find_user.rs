@@ -44,9 +44,6 @@ impl FindUserInteractor {
             }
         };
 
-        println!("{:?}", user_vec);
-        println!("{:?}", user_vec.len());
-
         if user_vec.is_empty() {
             // TODO return None?
             return FindUserOutputData {
