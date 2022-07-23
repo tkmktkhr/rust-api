@@ -21,22 +21,13 @@ pub struct FindUserInteractor {}
 impl FindUserInteractor {
     // TODO return type is Result? it should return None for Not found.
     pub fn get_user_by_id(_input: FindUserInputData) -> FindUserOutputData {
-        // REFACTOR DELETE FROM HERE-------------------------------
-        use rust_api::schema::users::dsl::users;
-
-        // use dotenv::dotenv;
-        // use std::env;
-        // dotenv().ok();
         use diesel::prelude::*;
+        use rust_api::schema::users::dsl::users;
 
         // REFACTOR connection should be taken as global object.
         let pool = connection::get_connection_pool();
         let connection = pool.get().unwrap();
 
-        // let database_url = env::var("DATABASE_URL").expect("DATABASE_URL must be set");
-        // let connection = MysqlConnection::establish(&database_url)
-        //     .expect(&format!("Error connecting to {}", database_url));
-        // REFACTOR DELETE UNTIL HERE-------------------------------
         // NOTE Application Logic is here
 
         // FIXME Dependency Inversion principle.
