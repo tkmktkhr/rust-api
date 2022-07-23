@@ -1,4 +1,5 @@
 use crate::entities::user::UserEntity;
+use crate::infrastructures::dbs::mysql::connection;
 use crate::infrastructures::models::user::User;
 use serde::Serialize;
 
@@ -23,14 +24,18 @@ impl FindUserInteractor {
         // REFACTOR DELETE FROM HERE-------------------------------
         use rust_api::schema::users::dsl::users;
 
-        use dotenv::dotenv;
-        use std::env;
-        dotenv().ok();
+        // use dotenv::dotenv;
+        // use std::env;
+        // dotenv().ok();
         use diesel::prelude::*;
 
-        let database_url = env::var("DATABASE_URL").expect("DATABASE_URL must be set");
-        let connection = MysqlConnection::establish(&database_url)
-            .expect(&format!("Error connecting to {}", database_url));
+        // REFACTOR connection should be taken as global object.
+        let pool = connection::get_connection_pool();
+        let connection = pool.get().unwrap();
+
+        // let database_url = env::var("DATABASE_URL").expect("DATABASE_URL must be set");
+        // let connection = MysqlConnection::establish(&database_url)
+        //     .expect(&format!("Error connecting to {}", database_url));
         // REFACTOR DELETE UNTIL HERE-------------------------------
         // NOTE Application Logic is here
 
@@ -47,7 +52,7 @@ impl FindUserInteractor {
         if user_vec.is_empty() {
             // TODO return None?
             return FindUserOutputData {
-                user: get_user(1000),
+                user: get_user(1001),
             };
         }
 
