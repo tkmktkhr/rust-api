@@ -1,6 +1,10 @@
 use crate::{
-    entities::user::UserEntity, interfaces::controllers::users::get::GetUsersController,
-    interfaces::controllers::users::get::GetUsersControllerTrait,
+    entities::user::UserEntity,
+    interfaces::controllers::users::get::GetUsersController,
+    interfaces::controllers::users::{
+        get::GetUsersControllerTrait,
+        post::{PostUsersController, PostUsersControllerTrait},
+    },
     interfaces::requests::users::create_user_request::CreateUserReq,
     use_cases::users::find_user::FindUserOutputData,
 };
@@ -57,6 +61,19 @@ pub async fn get_user(path: web::Path<(u32, String)>) -> web::Json<FindUserOutpu
 pub async fn create_user(body: web::Json<CreateUserReq>) -> impl Responder {
     let user_id = body.user_id;
     let name = &body.name;
+
+    let user_controller: PostUsersController =
+        PostUsersControllerTrait::new(String::from("PostUsers"));
+
+    let output = user_controller.create_user(user_id);
+
+    // use diesel::prelude::*;
+    // use rust_api::schema::users::dsl::users;
+
+    // // REFACTOR connection should be taken as global object.
+    // let pool = connection::get_connection_pool();
+    // let connection = pool.get().unwrap();
+
     // TODO PostUsersController
     let user1 = UserEntity {
         id: Some(user_id + 1),
