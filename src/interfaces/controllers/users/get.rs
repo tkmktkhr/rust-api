@@ -3,7 +3,6 @@ use crate::{
     use_cases::users::find_user::FindUserOutputData,
 };
 
-// kind of class without func
 pub struct GetUsersController {
     pub name: String,
 }
@@ -14,7 +13,6 @@ pub trait GetUsersControllerTrait {
     fn find_one_by_id(&self, id: u32) -> FindUserOutputData; // remove here but it will be error in Controller because there is no abstract concept in Rust.
 }
 
-// methods impl in struct
 impl GetUsersControllerTrait for GetUsersController {
     fn new(name: String) -> Self {
         called_log(&name);
