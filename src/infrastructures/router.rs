@@ -60,7 +60,9 @@ pub async fn get_user(path: web::Path<(u32, String)>) -> web::Json<FindUserOutpu
 #[post("/users")]
 pub async fn create_user(body: web::Json<CreateUserReq>) -> impl Responder {
     let user_id = body.user_id;
-    let name = &body.name;
+    let first_name = &body.first_name;
+    let last_name = &body.last_name;
+    // let email = &body.email;
 
     let user_controller: PostUsersController =
         PostUsersControllerTrait::new(String::from("PostUsers"));
@@ -77,9 +79,11 @@ pub async fn create_user(body: web::Json<CreateUserReq>) -> impl Responder {
     // TODO PostUsersController
     let user1 = UserEntity {
         id: Some(user_id + 1),
-        first_name: Some(name.to_string()),
-        last_name: Some(name.to_string()),
-        email: Some(name.to_string()),
+        first_name: Some(first_name.to_string()),
+        last_name: Some(last_name.to_string()),
+        // NOTE must deal with email error.
+        email: Some(last_name.to_string()),
+        // email: email.clone(),
     };
     let user2 = UserEntity {
         id: Some(user_id + 2),
