@@ -1,3 +1,5 @@
+use crate::infrastructures::dbs::mysql::connection;
+use crate::infrastructures::models::user::User;
 use crate::{
     entities::user::UserEntity,
     interfaces::controllers::users::get::GetUsersController,
@@ -59,6 +61,13 @@ pub async fn get_user(path: web::Path<(u32, String)>) -> web::Json<FindUserOutpu
 
 #[post("/users")]
 pub async fn create_user(body: web::Json<CreateUserReq>) -> impl Responder {
+    // use diesel::prelude::*;
+    // use rust_api::schema::users::dsl::users;
+
+    // // // REFACTOR connection should be taken as global object.
+    // let pool = connection::get_connection_pool();
+    // let connection = pool.get().unwrap();
+
     let user_id = body.user_id;
     let first_name = &body.first_name;
     let last_name = &body.last_name;
@@ -68,13 +77,6 @@ pub async fn create_user(body: web::Json<CreateUserReq>) -> impl Responder {
         PostUsersControllerTrait::new(String::from("PostUsers"));
 
     let output = user_controller.create_user(user_id);
-
-    // use diesel::prelude::*;
-    // use rust_api::schema::users::dsl::users;
-
-    // // REFACTOR connection should be taken as global object.
-    // let pool = connection::get_connection_pool();
-    // let connection = pool.get().unwrap();
 
     // TODO PostUsersController
     let user1 = UserEntity {
