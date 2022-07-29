@@ -83,8 +83,6 @@ pub async fn create_user(body: web::Json<CreateUserReq>) -> impl Responder {
         id: Some(user_id + 1),
         first_name: Some(first_name.to_string()),
         last_name: Some(last_name.to_string()),
-        // NOTE must deal with email error.
-        // email: Some(last_name.to_string()),
         email: email.clone(),
     };
     let user2 = UserEntity {
