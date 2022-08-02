@@ -67,7 +67,7 @@ pub async fn create_user(body: web::Json<CreateUserReq>) -> impl Responder {
     let user_controller: PostUsersController =
         PostUsersControllerTrait::new(String::from("PostUsers"));
 
-    let output = user_controller.create_user(user_id);
+    let output = user_controller.create_user(user_id, first_name, last_name, email);
 
     // TODO PostUsersController
     let user1 = UserEntity {

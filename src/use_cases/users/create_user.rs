@@ -5,7 +5,9 @@ use serde::{Deserialize, Serialize};
 
 // DTO<Input> validation should be here?
 pub struct CreateUserInputData {
-    pub id: u32,
+    pub id: u32, // TODO this should be eliminated because it is auto_increment value.
+    pub first_name: String,
+    // TODO last-name:, email
 }
 
 // TODO Think about Serializer here. It seems to oppose to Clean Architecture.
