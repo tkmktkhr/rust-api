@@ -30,7 +30,7 @@ impl CreateUserInteractor {
         let connection = pool.get().unwrap();
 
         let new_users = User {
-            id: 3957145,
+            id: input.id,
             first_name: "Jim".to_string(),
             last_name: Some("terry".to_string()),
             email: Some("Jim.com".to_string()),
