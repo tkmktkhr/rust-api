@@ -7,7 +7,8 @@ use serde::{Deserialize, Serialize};
 pub struct CreateUserInputData {
     pub id: u32, // TODO this should be eliminated because it is auto_increment value.
     pub first_name: String,
-    // TODO last-name:, email
+    pub last_name: String,
+    pub email: String,
 }
 
 // TODO Think about Serializer here. It seems to oppose to Clean Architecture.
