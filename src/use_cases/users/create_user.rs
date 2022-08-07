@@ -32,9 +32,9 @@ impl CreateUserInteractor {
 
         let new_users = User {
             id: input.id,
-            first_name: "Jim".to_string(),
-            last_name: Some("terry".to_string()),
-            email: Some("Jim.com".to_string()),
+            first_name: input.first_name,
+            last_name: Some(input.last_name),
+            email: Some(input.email),
         };
         // let results = users.load::<User>(&connection);
         let results = diesel::insert_into(users)
