@@ -36,7 +36,6 @@ impl CreateUserInteractor {
             last_name: Some(input.last_name),
             email: Some(input.email),
         };
-        // let results = users.load::<User>(&connection);
         let results = diesel::insert_into(users)
             .values(&new_users)
             .execute(&connection)
