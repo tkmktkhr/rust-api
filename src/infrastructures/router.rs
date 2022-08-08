@@ -69,20 +69,16 @@ pub async fn create_user(body: web::Json<CreateUserReq>) -> impl Responder {
 
     let output = user_controller.create_user(user_id, first_name, last_name, email);
 
+    let user = output.user;
+
     // TODO PostUsersController
-    let user1 = UserEntity {
-        id: Some(user_id + 1),
-        first_name: Some(first_name.to_string()),
-        last_name: Some(last_name.to_string()),
-        email: email.clone(),
-    };
     let user2 = UserEntity {
         id: Some(user_id + 2),
         first_name: Some(String::from("first")),
         last_name: Some(String::from("last")),
         email: Some(String::from("sample@email.com")),
     };
-    let users = [user1, user2];
+    let users = [user, user2];
 
     web::Json(users)
 }
