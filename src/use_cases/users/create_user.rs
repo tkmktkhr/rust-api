@@ -40,7 +40,8 @@ impl CreateUserInteractor {
             .values(&new_users)
             .execute(&connection)
             .unwrap();
-
+        println!("{:?}", results);
+        println!("{}", "-------------");
         // TODO Application Logic
         let user = create_user(input.id);
         let output = CreateUserOutputData { user };
