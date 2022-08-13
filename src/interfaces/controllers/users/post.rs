@@ -11,7 +11,7 @@ pub trait PostUsersControllerTrait {
     fn new(name: String) -> Self;
     fn create_user(
         &self,
-        id: u32,
+        id: u64,
         first_name: &str,
         last_name: &str,
         email: &Option<String>,
@@ -27,7 +27,7 @@ impl PostUsersControllerTrait for PostUsersController {
 
     fn create_user(
         &self,
-        id: u32,
+        id: u64,
         first_name: &str,
         last_name: &str,
         email: &Option<String>,

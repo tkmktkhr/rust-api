@@ -5,7 +5,7 @@ use serde::{Deserialize, Serialize};
 
 // DTO<Input> validation should be here?
 pub struct CreateUserInputData {
-    pub id: u32, // TODO this should be eliminated because it is auto_increment value.
+    pub id: u64, // TODO this should be eliminated because it is auto_increment value.
     pub first_name: String,
     pub last_name: String,
     pub email: String,
@@ -49,7 +49,7 @@ impl CreateUserInteractor {
     }
 }
 
-fn create_user(id: u32) -> user::UserEntity {
+fn create_user(id: u64) -> user::UserEntity {
     // TODO db access.
     user::UserEntity::new(
         id,

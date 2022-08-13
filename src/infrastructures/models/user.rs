@@ -5,7 +5,7 @@ use rust_api::schema::users;
 #[derive(Queryable, PartialEq, Debug, Insertable)]
 #[table_name = "users"]
 pub struct User {
-    pub id: u32,
+    pub id: u64,
     pub first_name: String,
     pub last_name: Option<String>,
     pub email: Option<String>,
