@@ -1,6 +1,6 @@
 use crate::entities::user;
 use crate::infrastructures::dbs::mysql::connection;
-use crate::infrastructures::models::user::User;
+use crate::infrastructures::models::user::{NewUser, User};
 use serde::{Deserialize, Serialize};
 
 // DTO<Input> validation should be here?
@@ -30,8 +30,8 @@ impl CreateUserInteractor {
         let pool = connection::get_connection_pool();
         let connection = pool.get().unwrap();
 
-        let new_users = User {
-            id: input.id,
+        let new_users = NewUser {
+            // id: input.id,
             first_name: input.first_name,
             last_name: Some(input.last_name),
             email: Some(input.email),
