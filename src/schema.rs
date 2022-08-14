@@ -1,6 +1,6 @@
 table! {
     users (id) {
-        id -> Unsigned<Bigint>,
+        id -> Integer,
         first_name -> Varchar,
         last_name -> Nullable<Varchar>,
         email -> Nullable<Varchar>,
