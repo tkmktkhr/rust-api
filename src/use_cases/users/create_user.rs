@@ -1,7 +1,7 @@
 use crate::entities::user;
 use crate::infrastructures::dbs::mysql::connection;
-use crate::infrastructures::models::user::{NewUser, User};
-use serde::{Deserialize, Serialize};
+use crate::infrastructures::models::user::NewUser;
+use serde::Serialize;
 
 // DTO<Input> validation should be here?
 pub struct CreateUserInputData {
@@ -40,8 +40,6 @@ impl CreateUserInteractor {
             .values(&new_users)
             .execute(&connection)
             .unwrap();
-        println!("{:?}", results);
-        println!("{}", "-------------");
         // TODO Application Logic
         let user = create_user(input.id);
         let output = CreateUserOutputData { user };
