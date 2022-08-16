@@ -3,7 +3,7 @@ use serde::{Deserialize, Serialize};
 
 #[derive(Debug, Serialize, Deserialize)]
 pub struct UserEntity {
-    pub id: Option<u64>,
+    pub id: Option<i32>,
     pub first_name: Option<String>,
     pub last_name: Option<String>,
     pub email: Option<String>,
@@ -12,7 +12,7 @@ pub struct UserEntity {
 // Business Rules are here.
 impl UserEntity {
     pub fn new(
-        id: u64,
+        id: i32,
         first_name: String,
         last_name: String,
         email: Option<String>,

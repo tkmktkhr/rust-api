@@ -5,7 +5,7 @@ use serde::Serialize;
 
 // DTO<Input> validation should be here?
 pub struct FindUserInputData {
-    pub id: u64,
+    pub id: i32,
 }
 
 // CHECK Think about Serializer here. It seems to oppose to Clean Architecture.
@@ -64,7 +64,7 @@ impl FindUserInteractor {
 }
 
 // sample function
-fn get_user(id: u64) -> UserEntity {
+fn get_user(id: i32) -> UserEntity {
     UserEntity::new(
         id,
         "abc".to_string(),
@@ -76,7 +76,7 @@ fn get_user(id: u64) -> UserEntity {
 
 // For View
 struct FindUserPresenter {
-    pub id: u64,
+    pub id: i32,
 }
 
 #[cfg(test)]
