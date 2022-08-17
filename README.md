@@ -40,4 +40,11 @@ Creating migrations directory at: /Users/<user-name>/<path>/<repo-name>/migratio
 
 #### migration run
 
+Generate the migration point
+`diesel migration generate`
+
+Execute the newest up.sql
 `diesel migration run`
+
+Execute the `down.sql` then `up.sql`
+`diesel migration redo`
