@@ -38,8 +38,10 @@ impl CreateUserInteractor {
         };
         let results = diesel::insert_into(users)
             .values(&new_users)
-            .execute(&connection)
-            .unwrap();
+            .execute(&connection);
+        let value = results.unwrap_or(0);
+        // println!("{:?}", results);
+        println!("{:?}", value);
         // TODO Application Logic
         let user = create_user(input.id);
         let output = CreateUserOutputData { user };

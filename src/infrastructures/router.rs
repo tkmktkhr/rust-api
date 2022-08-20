@@ -1,5 +1,4 @@
 use crate::{
-    entities::user::UserEntity,
     interfaces::controllers::users::get::GetUsersController,
     interfaces::controllers::users::{
         get::GetUsersControllerTrait,
@@ -70,6 +69,5 @@ pub async fn create_user(body: web::Json<CreateUserReq>) -> impl Responder {
     let output = user_controller.create_user(user_id, first_name, last_name, email);
 
     let user = output.user;
-
     web::Json(user)
 }
