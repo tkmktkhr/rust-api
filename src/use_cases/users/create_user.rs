@@ -36,6 +36,7 @@ impl CreateUserInteractor {
             last_name: Some(input.last_name),
             email: Some(input.email),
         };
+        // NOTE diesel get_result method does not support MYSQL.
         let results = diesel::insert_into(users)
             .values(&new_users)
             .execute(&connection);
