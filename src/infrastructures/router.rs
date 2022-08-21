@@ -58,15 +58,15 @@ pub async fn get_user(path: web::Path<(i32, String)>) -> web::Json<FindUserOutpu
 
 #[post("/users")]
 pub async fn create_user(body: web::Json<CreateUserReq>) -> impl Responder {
-    let user_id = body.user_id;
     let first_name = &body.first_name;
     let last_name = &body.last_name;
     let email = &body.email;
+    println!("{:?}", email);
 
     let user_controller: PostUsersController =
         PostUsersControllerTrait::new(String::from("PostUsers"));
 
-    let output = user_controller.create_user(user_id, first_name, last_name, email);
+    let output = user_controller.create_user(first_name, last_name, email);
 
     let user = output.user;
     web::Json(user)

@@ -5,7 +5,6 @@ use serde::Serialize;
 
 // DTO<Input> validation should be here?
 pub struct CreateUserInputData {
-    pub id: i32, // TODO this should be eliminated because it is auto_increment value.
     pub first_name: String,
     pub last_name: String,
     pub email: String,
@@ -31,7 +30,6 @@ impl CreateUserInteractor {
         let connection = pool.get().unwrap();
 
         let new_users = NewUser {
-            // id: input.id,
             first_name: input.first_name,
             last_name: Some(input.last_name),
             email: Some(input.email),
@@ -41,8 +39,8 @@ impl CreateUserInteractor {
             .values(&new_users)
             .execute(&connection);
         let value = results.unwrap_or(0);
-        // println!("{:?}", results);
         println!("{:?}", value);
+
         // TODO Application Logic
         let user = create_user(input.id);
         let output = CreateUserOutputData { user };
