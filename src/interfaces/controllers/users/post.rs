@@ -35,6 +35,7 @@ impl PostUsersControllerTrait for PostUsersController {
             last_name: last_name.to_string(),
             email: email.clone().unwrap_or_default(),
         };
-        return create_user::CreateUserInteractor::create(input_data);
+        let result = create_user::CreateUserInteractor::create(input_data);
+        return result;
     }
 }

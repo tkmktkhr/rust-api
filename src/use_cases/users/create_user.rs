@@ -35,14 +35,16 @@ impl CreateUserInteractor {
             email: Some(input.email),
         };
         // NOTE diesel get_result method does not support MYSQL.
+        // REFACTOR inert only one user.
         let results = diesel::insert_into(users)
             .values(&new_users)
             .execute(&connection);
+        // TODO handle error pattern.
         let value = results.unwrap_or(0);
         println!("{:?}", value);
 
         // TODO Application Logic
-        let user = create_user(input.id);
+        let user = create_user(123);
         let output = CreateUserOutputData { user };
         output
     }
