@@ -69,5 +69,6 @@ pub async fn create_user(body: web::Json<CreateUserReq>) -> impl Responder {
     let output = user_controller.create_user(first_name, last_name, email);
 
     let user = output.user;
+    // TODO response code 201 or 200.
     web::Json(user)
 }
