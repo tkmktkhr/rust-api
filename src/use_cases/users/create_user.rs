@@ -51,7 +51,6 @@ impl CreateUserInteractor {
 }
 
 fn create_user(id: i32) -> user::UserEntity {
-    // TODO db access.
     user::UserEntity::new(
         id,
         "abc".to_string(),
