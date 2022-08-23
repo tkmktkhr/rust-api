@@ -20,7 +20,7 @@ pub struct FindUserInteractor {}
 
 impl FindUserInteractor {
     // TODO return type is Result? it should return None for Not found.
-    pub fn get_user_by_id(_input: FindUserInputData) -> FindUserOutputData {
+    pub fn get_user_by_id(_input: FindUserInputData) -> Option<FindUserOutputData> {
         use diesel::prelude::*;
         use rust_api::schema::users::dsl::users;
 
@@ -42,9 +42,10 @@ impl FindUserInteractor {
 
         if user_vec.is_empty() {
             // TODO return None?
-            return FindUserOutputData {
-                user: get_user(1001),
-            };
+            // return FindUserOutputData {
+            //     user: get_user(1001),
+            // };
+            return None;
         }
 
         // TODO fix.
