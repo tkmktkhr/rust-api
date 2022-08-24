@@ -58,7 +58,7 @@ impl FindUserInteractor {
             email: user_entity_output.email.clone(),
         };
         let output = FindUserOutputData { user: user_output };
-        return output;
+        return Some(output);
     }
 
     // pub fn get_users(input: FindUserInputData) -> FindUserOutputData {}
