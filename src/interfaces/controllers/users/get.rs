@@ -10,7 +10,7 @@ pub struct GetUsersController {
 // Traits are similar to a feature often called interfaces in other languages, although with some differences.
 pub trait GetUsersControllerTrait {
     fn new(name: String) -> Self;
-    fn find_one_by_id(&self, id: i32) -> FindUserOutputData; // remove here but it will be error in Controller because there is no abstract concept in Rust.
+    fn find_one_by_id(&self, id: i32) -> Option<FindUserOutputData>; // remove here but it will be error in Controller because there is no abstract concept in Rust.
 }
 
 impl GetUsersControllerTrait for GetUsersController {
@@ -20,7 +20,7 @@ impl GetUsersControllerTrait for GetUsersController {
         Self { name }
     }
 
-    fn find_one_by_id(&self, id: i32) -> FindUserOutputData {
+    fn find_one_by_id(&self, id: i32) -> Option<FindUserOutputData> {
         // NOTE Clean Architecture Sample.
         // var inputData = new UserCreateInputData(userName);
         // userCreateUseCase.Handle(inputData);
@@ -29,6 +29,14 @@ impl GetUsersControllerTrait for GetUsersController {
         let output_data = find_user::FindUserInteractor::get_user_by_id(input_data);
 
         // TODO return results value
-        output_data
+        Some(output_data)
+        // let return_data = match output_data {
+        //     Some(user) => user,
+        //     None => {
+        //         // TODO return results as a zero value.
+        //         panic!("There was not that user: {:?}", error)
+        //     }
+        // };
+        // return return_data;
     }
 }
