@@ -42,7 +42,6 @@ pub async fn get_user_by_id(path: web::Path<i32>) -> web::Json<FindUserOutputDat
     };
     res
     // let full_name = output.user.full_name();
-    // println!("{}", full_name);
     // web::Json(output)
 }
 
