@@ -43,7 +43,6 @@ impl CreateUserInteractor {
         let value = results.unwrap_or(0);
         println!("{:?}", value);
 
-        // TODO Application Logic
         let user = create_user(123);
         let output = CreateUserOutputData { user };
         output
