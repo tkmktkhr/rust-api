@@ -55,6 +55,5 @@ fn create_user(id: i32) -> user::UserEntity {
         "abc".to_string(),
         " def".to_owned(),
         Some("a@example.com".to_string()),
-        // None,
     )
 }
