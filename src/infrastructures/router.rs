@@ -21,7 +21,7 @@ pub async fn index(path: web::Path<(i32, String)>) -> impl Responder {
 }
 
 #[get("/users/{id}")]
-pub async fn get_user_by_id(path: web::Path<i32>) -> web::Json<FindUserOutputData> {
+pub async fn get_user_by_id(path: web::Path<i32>) -> web::Json<Option<FindUserOutputData>> {
     // Controller Pattern 1
     // NOTE Type annotation(: GetUsersController) is necessary in this case.
     let user_controller: GetUsersController =
@@ -37,7 +37,7 @@ pub async fn get_user_by_id(path: web::Path<i32>) -> web::Json<FindUserOutputDat
 
     let res = match output {
         // TODO NOT Found
-        None => web::Json(Some(output)),
+        None => web::Json(output),
         Some(res) => web::Json(Some(output)),
     };
     res
