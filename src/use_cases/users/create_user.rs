@@ -40,7 +40,7 @@ impl CreateUserInteractor {
             .values(&new_users)
             .execute(&connection);
         // TODO handle error pattern.
-        let value = results.unwrap_or(0);
+        let value = results.unwrap_or(0); // return value is the number of registered users.
         println!("{:?}", value);
 
         let user = create_user(123);
