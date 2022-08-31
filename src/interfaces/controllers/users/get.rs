@@ -29,14 +29,19 @@ impl GetUsersControllerTrait for GetUsersController {
         let output_data = find_user::FindUserInteractor::get_user_by_id(input_data);
 
         // TODO return results value
-        Some(output_data)
+        // Some(output_data)
         // let return_data = match output_data {
         //     Some(user) => user,
-        //     None => {
-        //         // TODO return results as a zero value.
-        //         panic!("There was not that user: {:?}", error)
-        //     }
+        //     None => None, // TODO return results as a zero value. panic!("There was not that user: {:?}", error)
         // };
-        // return return_data;
+        let return_data = check_user_existence(&output_data);
+        return Some(return_data);
+    }
+}
+
+fn check_user_existence(original: &Option<FindUserOutputData>) -> Option<&FindUserOutputData> {
+    match original {
+        None => None,
+        Some(u) => Some(u.user),
     }
 }
