@@ -42,6 +42,6 @@ impl GetUsersControllerTrait for GetUsersController {
 fn check_user_existence(original: &Option<FindUserOutputData>) -> Option<&FindUserOutputData> {
     match original {
         None => None,
-        Some(u) => Some(u.user),
+        Some(u) => Some(u),
     }
 }
