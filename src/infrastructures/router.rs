@@ -55,8 +55,8 @@ pub async fn get_user(path: web::Path<(i32, String)>) -> web::Json<FindUserOutpu
 
     let output = user_controller.find_one_by_id(id);
 
-    let full_name = output.user.full_name();
-    println!("{}", full_name);
+    // let full_name = output.user.full_name();
+    // println!("{}", full_name);
     web::Json(output)
 }
 
