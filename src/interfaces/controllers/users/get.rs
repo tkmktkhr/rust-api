@@ -10,7 +10,7 @@ pub struct GetUsersController {
 // Traits are similar to a feature often called interfaces in other languages, although with some differences.
 pub trait GetUsersControllerTrait {
     fn new(name: String) -> Self;
-    fn find_one_by_id(&self, id: i32) -> Option<&FindUserOutputData>; // remove here but it will be error in Controller because there is no abstract concept in Rust.
+    fn find_one_by_id(&self, id: i32) -> Option<FindUserOutputData>; // remove here but it will be error in Controller because there is no abstract concept in Rust.
 }
 
 impl GetUsersControllerTrait for GetUsersController {
@@ -20,7 +20,7 @@ impl GetUsersControllerTrait for GetUsersController {
         Self { name }
     }
 
-    fn find_one_by_id(&self, id: i32) -> Option<&FindUserOutputData> {
+    fn find_one_by_id(&self, id: i32) -> Option<FindUserOutputData> {
         // NOTE Clean Architecture Sample.
         // var inputData = new UserCreateInputData(userName);
         // userCreateUseCase.Handle(inputData);
@@ -34,12 +34,13 @@ impl GetUsersControllerTrait for GetUsersController {
         //     Some(user) => user,
         //     None => None, // TODO return results as a zero value. panic!("There was not that user: {:?}", error)
         // };
-        let return_data = check_user_existence(&output_data);
+        let return_data = check_user_existence(output_data);
         return return_data;
     }
 }
 
-fn check_user_existence(original: &Option<FindUserOutputData>) -> Option<&FindUserOutputData> {
+// REFACTOR https://rust-lang.github.io/rust-clippy/master/index.html#manual_map
+fn check_user_existence(original: Option<FindUserOutputData>) -> Option<FindUserOutputData> {
     match original {
         None => None,
         Some(u) => Some(u),
