@@ -15,9 +15,6 @@ pub mod string_util {
     }
 }
 
-// &str -> slice - references, primitive
-// String -> Vector
-
 #[cfg(test)]
 mod tests {
     use super::*;
