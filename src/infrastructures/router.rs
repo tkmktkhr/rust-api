@@ -7,7 +7,7 @@ use crate::{
     interfaces::requests::users::create_user_request::CreateUserReq,
     use_cases::users::find_user::FindUserOutputData,
 };
-use actix_web::{get, post, web, HttpResponse, Responder};
+use actix_web::{get, http, post, web, HttpResponse, Responder};
 
 #[get("/healthCheck")]
 pub async fn health_check() -> impl Responder {
@@ -21,7 +21,8 @@ pub async fn index(path: web::Path<(i32, String)>) -> impl Responder {
 }
 
 #[get("/users/{id}")]
-pub async fn get_user_by_id(path: web::Path<i32>) -> web::Json<Option<FindUserOutputData>> {
+// pub async fn get_user_by_id(path: web::Path<i32>) -> web::Json<Option<FindUserOutputData>> {
+pub async fn get_user_by_id(path: web::Path<i32>) -> impl Responder {
     // Controller Pattern 1
     // NOTE Type annotation(: GetUsersController) is necessary in this case.
     let user_controller: GetUsersController =
@@ -34,19 +35,22 @@ pub async fn get_user_by_id(path: web::Path<i32>) -> web::Json<Option<FindUserOu
 
     let output = user_controller.find_one_by_id(id);
     println!("{:?}", output);
+    // let output_clone = output.clone();
 
     let res = match output {
         // TODO NOT Found
         None => web::Json(output),
-        Some(res) => web::Json(Some(output)),
+        Some(res) => web::Json(Some(res)),
     };
-    res
+    // res
+    (res, http::StatusCode::CREATED)
     // let full_name = output.user.full_name();
     // web::Json(output)
 }
 
 #[get("/users/{id}/{name}")]
-pub async fn get_user(path: web::Path<(i32, String)>) -> web::Json<FindUserOutputData> {
+// pub async fn get_user(path: web::Path<(i32, String)>) -> web::Json<FindUserOutputData> {
+pub async fn get_user(path: web::Path<(i32, String)>) -> impl Responder {
     // Type annotation(: GetUsersController) is necessary in this case.
     let user_controller: GetUsersController =
         GetUsersControllerTrait::new(String::from("GetUsers"));
