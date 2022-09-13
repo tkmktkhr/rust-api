@@ -101,7 +101,6 @@ mod tests {
             "abc".to_string(),
             name.to_owned(),
             Some("a@example.com".to_string()),
-            // None,
         );
 
         let user = get_user(id);
