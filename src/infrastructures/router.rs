@@ -7,7 +7,11 @@ use crate::{
     interfaces::requests::users::create_user_request::CreateUserReq,
     use_cases::users::find_user::FindUserOutputData,
 };
-use actix_web::{get, http, post, web, HttpResponse, Responder};
+use actix_web::{
+    get, http, post,
+    web::{self, Json},
+    HttpResponse, Responder,
+};
 
 #[get("/healthCheck")]
 pub async fn health_check() -> impl Responder {
@@ -18,6 +22,19 @@ pub async fn health_check() -> impl Responder {
 pub async fn index(path: web::Path<(i32, String)>) -> impl Responder {
     let (id, name) = path.into_inner();
     HttpResponse::Ok().body(format!("Hello {}! id:{}", name, id))
+}
+
+struct NotFoundError {
+    msg: String,
+}
+
+fn check_obj_or_none(
+    original: Option<FindUserOutputData>,
+) -> Option<Json<Option<FindUserOutputData>>> {
+    match original {
+        None => None,
+        Some(i) => Some(web::Json(Some(i))),
+    }
 }
 
 #[get("/users/{id}")]
@@ -39,11 +56,26 @@ pub async fn get_user_by_id(path: web::Path<i32>) -> impl Responder {
 
     let res = match output {
         // TODO NOT Found
+        // None => web::Json(obj),
         None => web::Json(output),
         Some(res) => web::Json(Some(res)),
     };
-    // res
-    (res, http::StatusCode::CREATED)
+
+    let res = if output.is_none() {
+        let obj = NotFoundError {
+            msg: "NOT FOUND".to_string(),
+        };
+        let e_res = web::Json(obj);
+        return (e_res, http::StatusCode::NOT_FOUND);
+    } else {
+        let ok_res = web::Json(output);
+        return (ok_res, http::StatusCode::CREATED);
+    };
+
+    res
+    // (res, http::StatusCode::CREATED)
+    // (web::Json(Some(output)), http::StatusCode::CREATED)
+
     // let full_name = output.user.full_name();
     // web::Json(output)
 }
