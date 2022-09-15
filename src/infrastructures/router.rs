@@ -61,16 +61,16 @@ pub async fn get_user_by_id(path: web::Path<i32>) -> impl Responder {
         Some(res) => web::Json(Some(res)),
     };
 
-    let res = if output.is_none() {
-        let obj = NotFoundError {
-            msg: "NOT FOUND".to_string(),
-        };
-        let e_res = web::Json(obj);
-        return (e_res, http::StatusCode::NOT_FOUND);
-    } else {
-        let ok_res = web::Json(output);
-        return (ok_res, http::StatusCode::CREATED);
-    };
+    // let res = if output.is_none() {
+    //     let obj = NotFoundError {
+    //         msg: "NOT FOUND".to_string(),
+    //     };
+    //     let e_res = web::Json(obj);
+    //     return (e_res, http::StatusCode::NOT_FOUND);
+    // } else {
+    //     let ok_res = web::Json(output);
+    //     return (ok_res, http::StatusCode::CREATED);
+    // };
 
     res
     // (res, http::StatusCode::CREATED)
