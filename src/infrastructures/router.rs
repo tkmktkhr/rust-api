@@ -37,6 +37,11 @@ fn check_obj_or_none(
     }
 }
 
+pub enum Res {
+    FindUserOutputData,
+    NotFoundError,
+}
+
 #[get("/users/{id}")]
 // pub async fn get_user_by_id(path: web::Path<i32>) -> web::Json<Option<FindUserOutputData>> {
 pub async fn get_user_by_id(path: web::Path<i32>) -> impl Responder {
