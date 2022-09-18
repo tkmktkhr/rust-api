@@ -78,6 +78,7 @@ pub async fn get_user_by_id(path: web::Path<i32>) -> impl Responder {
     // };
 
     res
+    // NOTE returning with indicated status code.
     // (res, http::StatusCode::CREATED)
     // (web::Json(Some(output)), http::StatusCode::CREATED)
 
