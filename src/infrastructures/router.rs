@@ -42,6 +42,10 @@ pub enum Res {
     NotFoundError,
 }
 
+struct ResponseStruct {
+    res: Res,
+}
+
 #[get("/users/{id}")]
 // pub async fn get_user_by_id(path: web::Path<i32>) -> web::Json<Option<FindUserOutputData>> {
 pub async fn get_user_by_id(path: web::Path<i32>) -> impl Responder {
@@ -59,12 +63,24 @@ pub async fn get_user_by_id(path: web::Path<i32>) -> impl Responder {
     println!("{:?}", output);
     // let output_clone = output.clone();
 
-    let res = match output {
-        // TODO NOT Found
-        // None => web::Json(obj),
-        None => web::Json(output),
-        Some(res) => web::Json(Some(res)),
+    let obj = NotFoundError {
+        msg: "NOT FOUND".to_string(),
     };
+
+    // let res = match output {
+    //     // TODO NOT Found
+    //     // None => web::Json(obj),
+    //     None => ResponseStruct { res: obj },
+    //     Some(res) => ResponseStruct { res: res },
+    // };
+
+    // NOTE This works.
+    // let res = match output {
+    //     // TODO NOT Found
+    //     // None => web::Json(obj),
+    //     None => web::Json(output),
+    //     Some(res) => web::Json(Some(res)),
+    // };
 
     // let res = if output.is_none() {
     //     let obj = NotFoundError {
