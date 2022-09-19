@@ -67,12 +67,12 @@ pub async fn get_user_by_id(path: web::Path<i32>) -> impl Responder {
         msg: "NOT FOUND".to_string(),
     };
 
-    // let res = match output {
-    //     // TODO NOT Found
-    //     // None => web::Json(obj),
-    //     None => ResponseStruct { res: obj },
-    //     Some(res) => ResponseStruct { res: res },
-    // };
+    let res = match output {
+        // TODO NOT Found
+        // None => web::Json(obj),
+        None => ResponseStruct { res: obj },
+        Some(res) => ResponseStruct { res: res },
+    };
 
     // NOTE This works.
     // let res = match output {
