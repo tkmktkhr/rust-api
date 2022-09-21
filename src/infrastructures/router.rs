@@ -12,6 +12,7 @@ use actix_web::{
     web::{self, Json},
     HttpResponse, Responder,
 };
+use serde::Serialize;
 
 #[get("/healthCheck")]
 pub async fn health_check() -> impl Responder {
@@ -24,6 +25,7 @@ pub async fn index(path: web::Path<(i32, String)>) -> impl Responder {
     HttpResponse::Ok().body(format!("Hello {}! id:{}", name, id))
 }
 
+#[derive(Debug, Serialize)]
 struct NotFoundError {
     msg: String,
 }
@@ -42,7 +44,8 @@ pub enum Res {
     NotFoundError,
 }
 
-struct ResponseStruct {
+#[derive(Debug, Serialize)]
+pub struct ResponseStruct {
     res: Res,
 }
 
@@ -74,7 +77,10 @@ pub async fn get_user_by_id(path: web::Path<i32>) -> impl Responder {
             web::Json(ResponseStruct { res: obj }),
             http::StatusCode::CREATED,
         ),
-        Some(res) => (web::Json(ResponseStruct { res }), http::StatusCode::CREATED),
+        Some(response) => (
+            web::Json(ResponseStruct { res: response }),
+            http::StatusCode::CREATED,
+        ),
     };
 
     // NOTE This works.
