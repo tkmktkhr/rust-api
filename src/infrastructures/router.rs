@@ -80,10 +80,9 @@ pub async fn get_user_by_id(path: web::Path<i32>) -> impl Responder {
             http::StatusCode::CREATED,
         ),
         Some(response) => (
-            web::Json(ResponseStruct { res: response }),
-            // web::Json(ResponseStruct {
-            //     res: Res::FindUserOutputData(output),
-            // }),
+            web::Json(ResponseStruct {
+                res: Res::FindUserOutputData(Some(response)),
+            }),
             http::StatusCode::CREATED,
         ),
     };
