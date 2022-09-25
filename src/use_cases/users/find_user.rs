@@ -32,7 +32,8 @@ impl FindUserInteractor {
 
         // FIXME Dependency Inversion principle.
         // FIXME Get Indicated user.
-        let results = users.load::<User>(&connection);
+        // let results = users.load::<User>(&connection);
+        let results = users.select::<User>(&connection);
         let user_vec = match results {
             Ok(user) => user,
             Err(error) => {
