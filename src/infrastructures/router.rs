@@ -62,6 +62,7 @@ pub async fn get_user_by_id(path: web::Path<i32>) -> impl Responder {
     // let user_controller = GetUsersController::new(String::from("get_user_by_id"));
 
     let id = path.into_inner();
+    println!("{:?}", id);
 
     let output = user_controller.find_one_by_id(id);
     println!("{:?}", output);
@@ -77,13 +78,13 @@ pub async fn get_user_by_id(path: web::Path<i32>) -> impl Responder {
             web::Json(ResponseStruct {
                 res: Res::NotFoundError(obj),
             }),
-            http::StatusCode::CREATED,
+            http::StatusCode::NOT_FOUND,
         ),
         Some(response) => (
             web::Json(ResponseStruct {
                 res: Res::FindUserOutputData(Some(response)),
             }),
-            http::StatusCode::CREATED,
+            http::StatusCode::OK,
         ),
     };
 
