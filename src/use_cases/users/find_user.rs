@@ -20,7 +20,7 @@ pub struct FindUserInteractor {}
 
 impl FindUserInteractor {
     // TODO return type is Result? it should return None for Not found.
-    pub fn get_user_by_id(_input: FindUserInputData) -> Option<FindUserOutputData> {
+    pub fn get_user_by_id(input: FindUserInputData) -> Option<FindUserOutputData> {
         use diesel::prelude::*;
         use rust_api::schema::users::dsl::users;
 
@@ -33,7 +33,7 @@ impl FindUserInteractor {
         // FIXME Dependency Inversion principle.
         // FIXME Get Indicated user.
         // let results = users.load::<User>(&connection);
-        let results = users.select::<User>(&connection);
+        let results = users.find(input.id).first(&connection);
         let user_vec = match results {
             Ok(user) => user,
             Err(error) => {
@@ -42,23 +42,27 @@ impl FindUserInteractor {
             }
         };
 
-        if user_vec.is_empty() {
-            // TODO return None?
-            // return FindUserOutputData {
-            //     user: get_user(1001),
-            // };
-            return None;
-        }
-
-        // TODO fix.
-        let user_entity_output = &user_vec[0];
-
         let user_output = UserEntity {
             id: Some(user_entity_output.id),
             first_name: Some(user_entity_output.first_name.clone()),
             last_name: user_entity_output.last_name.clone(),
             email: user_entity_output.email.clone(),
         };
+
+        // if user_vec.is_empty() {
+        //     // TODO return None?
+        //     return None;
+        // }
+
+        // // TODO fix.
+        // let user_entity_output = &user_vec[0];
+
+        // let user_output = UserEntity {
+        //     id: Some(user_entity_output.id),
+        //     first_name: Some(user_entity_output.first_name.clone()),
+        //     last_name: user_entity_output.last_name.clone(),
+        //     email: user_entity_output.email.clone(),
+        // };
         let output = FindUserOutputData { user: user_output };
         return Some(output);
     }
