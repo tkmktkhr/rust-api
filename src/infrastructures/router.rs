@@ -88,32 +88,7 @@ pub async fn get_user_by_id(path: web::Path<i32>) -> impl Responder {
         ),
     };
 
-    // NOTE This works.
-    // let res = match output {
-    //     // TODO NOT Found
-    //     // None => web::Json(obj),
-    //     None => web::Json(output),
-    //     Some(res) => web::Json(Some(res)),
-    // };
-
-    // let res = if output.is_none() {
-    //     let obj = NotFoundError {
-    //         msg: "NOT FOUND".to_string(),
-    //     };
-    //     let e_res = web::Json(obj);
-    //     return (e_res, http::StatusCode::NOT_FOUND);
-    // } else {
-    //     let ok_res = web::Json(output);
-    //     return (ok_res, http::StatusCode::CREATED);
-    // };
-
     res
-    // NOTE returning with indicated status code.
-    // (res, http::StatusCode::CREATED)
-    // (web::Json(Some(output)), http::StatusCode::CREATED)
-
-    // let full_name = output.user.full_name();
-    // web::Json(output)
 }
 
 #[get("/users/{id}/{name}")]
