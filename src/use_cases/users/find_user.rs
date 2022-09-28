@@ -1,6 +1,7 @@
 use crate::entities::user::UserEntity;
 use crate::infrastructures::dbs::mysql::connection;
 use crate::infrastructures::models::user::User;
+use diesel::sql_query;
 use serde::Serialize;
 
 // DTO<Input> validation should be here?
@@ -33,7 +34,7 @@ impl FindUserInteractor {
         // FIXME Dependency Inversion principle.
         // FIXME Get Indicated user.
         // let results = users.load::<User>(&connection);
-        let results = users.find(input.id).first(&connection);
+        let results = users.filter(users::id.eq(input.id)).first(&connection);
         let user_vec = match results {
             Ok(user) => user,
             Err(error) => {
@@ -41,6 +42,20 @@ impl FindUserInteractor {
                 panic!("There was not that user: {:?}", error)
             }
         };
+
+        let user: Vec<User> = sql_query(
+            "
+            SELECT
+                id,
+                first_name,
+                last_name,
+                email
+            FROM
+                users
+            ",
+        )
+        .load(&connection)
+        .unwrap();
 
         let user_output = UserEntity {
             id: Some(user_entity_output.id),
