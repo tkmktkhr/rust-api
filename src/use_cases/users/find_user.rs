@@ -57,12 +57,12 @@ impl FindUserInteractor {
         .load(&connection)
         .unwrap();
 
-        let user_output = UserEntity {
-            id: Some(user_entity_output.id),
-            first_name: Some(user_entity_output.first_name.clone()),
-            last_name: user_entity_output.last_name.clone(),
-            email: user_entity_output.email.clone(),
-        };
+        // let user_output = UserEntity {
+        //     id: Some(user_entity_output.id),
+        //     first_name: Some(user_entity_output.first_name.clone()),
+        //     last_name: user_entity_output.last_name.clone(),
+        //     email: user_entity_output.email.clone(),
+        // };
 
         // if user_vec.is_empty() {
         //     // TODO return None?
