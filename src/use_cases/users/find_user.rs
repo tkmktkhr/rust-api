@@ -44,7 +44,7 @@ impl FindUserInteractor {
         //     }
         // };
 
-        let user: Result<Vec<User>, Error> = sql_query(
+        let users_res: Result<Vec<_>, Error> = sql_query(
             "
             SELECT
                 id,
@@ -57,6 +57,7 @@ impl FindUserInteractor {
         )
         .load(&connection);
         // .unwrap();
+        print!("{:?}", users_res);
 
         // let user_output = UserEntity {
         //     id: Some(user_entity_output.id),
@@ -72,6 +73,7 @@ impl FindUserInteractor {
 
         // // TODO fix.
         // let user_entity_output = &user_vec[0];
+        // let user_entity_output = &users_res[0];
 
         // let user_output = UserEntity {
         //     id: Some(user_entity_output.id),
