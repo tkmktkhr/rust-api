@@ -1,6 +1,7 @@
 use crate::entities::user::UserEntity;
 use crate::infrastructures::dbs::mysql::connection;
 use crate::infrastructures::models::user::User;
+use diesel::result::Error;
 use diesel::sql_query;
 use serde::Serialize;
 
@@ -33,17 +34,17 @@ impl FindUserInteractor {
 
         // FIXME Dependency Inversion principle.
         // FIXME Get Indicated user.
-        // let results = users.load::<User>(&connection);
-        let results = users.filter(users::id.eq(input.id)).first(&connection);
-        let user_vec = match results {
-            Ok(user) => user,
-            Err(error) => {
-                // TODO return results as a zero value.
-                panic!("There was not that user: {:?}", error)
-            }
-        };
+        let results = users.load::<User>(&connection);
+        // let results = users.filter(users::id.eq(input.id)).first(&connection);
+        // let user_vec = match results {
+        //     Ok(user) => user,
+        //     Err(error) => {
+        //         // TODO return results as a zero value.
+        //         panic!("There was not that user: {:?}", error)
+        //     }
+        // };
 
-        let user: Vec<User> = sql_query(
+        let user: Result<Vec<User>, Error> = sql_query(
             "
             SELECT
                 id,
@@ -54,8 +55,8 @@ impl FindUserInteractor {
                 users
             ",
         )
-        .load(&connection)
-        .unwrap();
+        .load(&connection);
+        // .unwrap();
 
         // let user_output = UserEntity {
         //     id: Some(user_entity_output.id),
