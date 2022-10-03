@@ -44,7 +44,7 @@ impl FindUserInteractor {
         //     }
         // };
 
-        let users_res: Result<Vec<_>, Error> = sql_query(
+        let users_res: Result<Vec<User>, Error> = sql_query(
             "
             SELECT
                 id,
@@ -55,9 +55,19 @@ impl FindUserInteractor {
                 users
             ",
         )
-        .load(&connection);
+        .load::<User>(&connection);
         // .unwrap();
         print!("{:?}", users_res);
+
+        let a = match users_res {
+            Ok(vec) => vec,
+            Err(e) => panic!("Problem creating the file: {:?}", e), // TODO ERROR PROCESS
+        };
+
+        if a.is_empty() {
+            // TODO return None?
+            return None;
+        }
 
         // let user_output = UserEntity {
         //     id: Some(user_entity_output.id),
@@ -73,14 +83,14 @@ impl FindUserInteractor {
 
         // // TODO fix.
         // let user_entity_output = &user_vec[0];
-        // let user_entity_output = &users_res[0];
+        let user_entity_output = &a[0];
 
-        // let user_output = UserEntity {
-        //     id: Some(user_entity_output.id),
-        //     first_name: Some(user_entity_output.first_name.clone()),
-        //     last_name: user_entity_output.last_name.clone(),
-        //     email: user_entity_output.email.clone(),
-        // };
+        let user_output = UserEntity {
+            id: Some(user_entity_output.id),
+            first_name: Some(user_entity_output.first_name.clone()),
+            last_name: user_entity_output.last_name.clone(),
+            email: user_entity_output.email.clone(),
+        };
         let output = FindUserOutputData { user: user_output };
         return Some(output);
     }
