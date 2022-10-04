@@ -56,7 +56,6 @@ impl FindUserInteractor {
             ",
         )
         .load::<User>(&connection);
-        // .unwrap();
         print!("{:?}", users_res);
 
         let a = match users_res {
