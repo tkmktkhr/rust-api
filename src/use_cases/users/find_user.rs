@@ -44,8 +44,10 @@ impl FindUserInteractor {
         //     }
         // };
 
+        // let users_res: Result<Vec<(i32, String, Option<String>, Option<String>)>, Error> =
         let users_res: Result<Vec<User>, Error> = sql_query(
-            "
+            sql_query(
+                "
             SELECT
                 id,
                 first_name,
@@ -54,16 +56,17 @@ impl FindUserInteractor {
             FROM
                 users
             ",
-        )
-        .load::<User>(&connection);
+            )
+            .load::<User>(&connection);
+            // .load::<(i32, String, Option<String>, Option<String>)>(&connection);
         print!("{:?}", users_res);
 
-        let a = match users_res {
+        let vec_res = match users_res {
             Ok(vec) => vec,
             Err(e) => panic!("Problem creating the file: {:?}", e), // TODO ERROR PROCESS
         };
 
-        if a.is_empty() {
+        if vec_res.is_empty() {
             // TODO return None?
             return None;
         }
@@ -82,7 +85,7 @@ impl FindUserInteractor {
 
         // // TODO fix.
         // let user_entity_output = &user_vec[0];
-        let user_entity_output = &a[0];
+        let user_entity_output = &vec_res[0];
 
         let user_output = UserEntity {
             id: Some(user_entity_output.id),
