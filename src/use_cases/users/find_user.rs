@@ -44,8 +44,7 @@ impl FindUserInteractor {
         //     }
         // };
 
-        // let users_res: Result<Vec<(i32, String, Option<String>, Option<String>)>, Error> =
-        let users_res: Result<Vec<User>, Error> = sql_query(
+        let users_res: Result<Vec<(i32, String, Option<String>, Option<String>)>, Error> =
             sql_query(
                 "
             SELECT
@@ -57,8 +56,7 @@ impl FindUserInteractor {
                 users
             ",
             )
-            .load::<User>(&connection);
-            // .load::<(i32, String, Option<String>, Option<String>)>(&connection);
+            .load::<(i32, String, Option<String>, Option<String>)>(&connection);
         print!("{:?}", users_res);
 
         let vec_res = match users_res {
