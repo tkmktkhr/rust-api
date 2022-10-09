@@ -3,6 +3,7 @@ use crate::infrastructures::dbs::mysql::connection;
 use crate::infrastructures::models::user::User;
 use diesel::result::Error;
 use diesel::sql_query;
+use diesel::sql_types::Integer;
 use serde::Serialize;
 
 // DTO<Input> validation should be here?
@@ -53,8 +54,11 @@ impl FindUserInteractor {
                 email
             FROM
                 users
+            WHERE
+                id = ?
             ",
         )
+        .bind::<Integer, _>(input.id)
         .load::<User>(&connection);
         // .load::<(i32, String, Option<String>, Option<String>)>(&connection);
         print!("{:?}", users_res);
