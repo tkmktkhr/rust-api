@@ -1,8 +1,9 @@
-use diesel::{Insertable, Queryable};
+use diesel::{Insertable, Queryable, QueryableByName};
 use rust_api::schema::users;
 
 // NOTE #[derive(Queryable)] will generate all of the code needed to load a Post struct from a SQL query.
-#[derive(Queryable, PartialEq, Debug)]
+#[derive(QueryableByName, Queryable, Debug)]
+#[table_name = "users"]
 pub struct User {
     pub id: i32,
     pub first_name: String,
