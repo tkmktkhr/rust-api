@@ -35,17 +35,8 @@ impl FindUserInteractor {
 
         // FIXME Dependency Inversion principle.
         // FIXME Get Indicated user.
-        let results = users.load::<User>(&connection);
-        // let results = users.filter(users::id.eq(input.id)).first(&connection);
-        // let user_vec = match results {
-        //     Ok(user) => user,
-        //     Err(error) => {
-        //         // TODO return results as a zero value.
-        //         panic!("There was not that user: {:?}", error)
-        //     }
-        // };
-
-        let users_res: Result<Vec<User>, Error> = sql_query(
+        // let results = users.load::<User>(&connection);
+        let result: Result<Vec<User>, Error> = sql_query(
             "
             SELECT
                 id,
@@ -60,34 +51,19 @@ impl FindUserInteractor {
         )
         .bind::<Integer, _>(input.id)
         .load::<User>(&connection);
-        // .load::<(i32, String, Option<String>, Option<String>)>(&connection);
-        print!("{:?}", users_res);
+        print!("{:?}", result);
 
-        let vec_res = match users_res {
+        let found_user = match result {
             Ok(vec) => vec,
             Err(e) => panic!("Problem creating the file: {:?}", e), // TODO ERROR PROCESS
         };
 
-        if vec_res.is_empty() {
+        if found_user.is_empty() {
             // TODO return None?
             return None;
         }
 
-        // let user_output = UserEntity {
-        //     id: Some(user_entity_output.id),
-        //     first_name: Some(user_entity_output.first_name.clone()),
-        //     last_name: user_entity_output.last_name.clone(),
-        //     email: user_entity_output.email.clone(),
-        // };
-
-        // if user_vec.is_empty() {
-        //     // TODO return None?
-        //     return None;
-        // }
-
-        // // TODO fix.
-        // let user_entity_output = &user_vec[0];
-        let user_entity_output = &vec_res[0];
+        let user_entity_output = &found_user[0];
 
         let user_output = UserEntity {
             id: Some(user_entity_output.id),
