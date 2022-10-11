@@ -43,6 +43,7 @@ impl CreateUserInteractor {
         let value = results.unwrap_or(0); // return value is the number of registered users.
         println!("{:?}", value);
 
+        // TODO get created user. if possible.
         let user = create_user(123);
         let output = CreateUserOutputData { user };
         output
