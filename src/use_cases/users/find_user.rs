@@ -25,7 +25,6 @@ impl FindUserInteractor {
     // TODO return type is Result? it should return None for Not found.
     pub fn get_user_by_id(input: FindUserInputData) -> Option<FindUserOutputData> {
         use diesel::prelude::*;
-        use rust_api::schema::users::dsl::users;
 
         // REFACTOR connection should be taken as global object.
         let pool = connection::get_connection_pool();
@@ -35,7 +34,6 @@ impl FindUserInteractor {
 
         // FIXME Dependency Inversion principle.
         // FIXME Get Indicated user.
-        // let results = users.load::<User>(&connection);
         let result: Result<Vec<User>, Error> = sql_query(
             "
             SELECT
@@ -75,7 +73,11 @@ impl FindUserInteractor {
         return Some(output);
     }
 
-    // pub fn get_users(input: FindUserInputData) -> FindUserOutputData {}
+    // TODO GET plural users.
+    // pub fn get_users(input: FindUserInputData) -> FindUserOutputData {
+    // use rust_api::schema::users::dsl::users;
+    // let results = users.load::<User>(&connection);
+    // }
 }
 
 // sample function
