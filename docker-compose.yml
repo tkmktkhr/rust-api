@@ -1,0 +1,34 @@
+version: '3.8'
+services:
+  api:
+    build:
+      context: ./
+      target: 'develop-stage'
+    container_name: rust-api
+    command: sh -c "cargo watch -x run"
+    tty: true
+    working_dir: '/src'
+    volumes:
+      - .:/src/:cached
+    expose:
+      - '8080'
+    ports:
+      - '8080:8080'
+    depends_on:
+      - db
+  db:
+    image: mysql:8.0
+    command: --character-set-server=utf8mb4 --collation-server=utf8mb4_unicode_ci
+    container_name: rust_db
+    restart: always
+    environment:
+      MYSQL_DATABASE: rust
+      MYSQL_USER: rust
+      MYSQL_PASSWORD: password
+      MYSQL_ROOT_PASSWORD: password
+    ports:
+      - '13306:3306'
+    volumes:
+      - ./mysql/initdb.d:/docker-entrypoint-initdb.d
+      - ./mysql/conf.d:/etc/mysql/conf.d
+      - ./log/mysql:/var/log/mysql

@@ -1,20 +1,40 @@
-use actix_web::{get, web, App, HttpResponse, HttpServer, Responder};
+extern crate dotenv;
 
-#[get("/")]
-async fn index() -> impl Responder {
-    HttpResponse::Ok().body("Hello world!")
-}
+mod entities;
+mod infrastructures;
+mod interfaces;
+mod use_cases;
+mod utils;
 
-
-#[get("/{id}/{name}")]
-async fn sample_get(web::Path((id, name)): web::Path<(u32, String)>) -> impl Responder {
-    format!("Hello {}! id:{}", name, id)
-}
+use actix_web::{App, HttpServer};
+use dotenv::dotenv;
+use std::env;
 
 #[actix_web::main]
 async fn main() -> std::io::Result<()> {
-    HttpServer::new(|| {App::new().service(sample_get).service(index)})
-        .bind("127.0.0.1:8080")?
-        .run()
-        .await
+    dotenv().ok();
+    use infrastructures::router;
+
+    // FROM here - previous db connection impl.
+    // use diesel::mysql::MysqlConnection;
+    // use diesel::prelude::*;
+    // let database_url = env::var("DATABASE_URL").expect("DATABASE_URL must be set");
+    // MysqlConnection::establish(&database_url)
+    //     .expect(&format!("Error connecting to {}", database_url));
+    // UNTIL here - previous db connection impl.
+
+    // REFACTOR make Connection pool global object.
+    infrastructures::dbs::mysql::connection::get_connection_pool();
+
+    HttpServer::new(|| {
+        App::new()
+            .service(router::health_check)
+            .service(router::index)
+            .service(router::get_user_by_id)
+            .service(router::get_user)
+            .service(router::create_user)
+    })
+    .bind(env::var("ADDRESS").unwrap())?
+    .run()
+    .await
 }
