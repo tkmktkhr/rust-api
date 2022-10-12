@@ -30,15 +30,6 @@ struct NotFoundError {
     msg: String,
 }
 
-fn check_obj_or_none(
-    original: Option<FindUserOutputData>,
-) -> Option<Json<Option<FindUserOutputData>>> {
-    match original {
-        None => None,
-        Some(i) => Some(web::Json(Some(i))),
-    }
-}
-
 #[derive(Debug, Serialize)]
 pub enum Res {
     FindUserOutputData(Option<FindUserOutputData>),
