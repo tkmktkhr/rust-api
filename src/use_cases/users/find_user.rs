@@ -57,10 +57,10 @@ impl FindUserInteractor {
         };
 
         if found_user.is_empty() {
-            // TODO return None?
             return None;
         }
 
+        // TODO user should be only one.
         let user_entity_output = &found_user[0];
 
         let user_output = UserEntity {
