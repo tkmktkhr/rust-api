@@ -83,7 +83,7 @@ pub async fn get_user_by_id(path: web::Path<i32>) -> impl Responder {
 
 #[get("/users/{id}/{name}")]
 // pub async fn get_user(path: web::Path<(i32, String)>) -> web::Json<FindUserOutputData> {
-pub async fn get_user(path: web::Path<(i32, String)>) -> impl Responder {
+pub async fn get_users(path: web::Path<(i32, String)>) -> impl Responder {
     // Type annotation(: GetUsersController) is necessary in this case.
     let user_controller: GetUsersController =
         GetUsersControllerTrait::new(String::from("GetUsers"));
