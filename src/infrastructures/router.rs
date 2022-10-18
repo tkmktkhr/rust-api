@@ -25,17 +25,20 @@ pub async fn index(path: web::Path<(i32, String)>) -> impl Responder {
     HttpResponse::Ok().body(format!("Hello {}! id:{}", name, id))
 }
 
+// TODO transfer to response.
 #[derive(Debug, Serialize)]
 struct NotFoundError {
     msg: String,
 }
 
+// TODO transfer to response.
 #[derive(Debug, Serialize)]
 pub enum Res {
     FindUserOutputData(Option<FindUserOutputData>),
     NotFoundError(NotFoundError),
 }
 
+// TODO transfer to response.
 #[derive(Debug, Serialize)]
 pub struct ResponseStruct {
     res: Res,
