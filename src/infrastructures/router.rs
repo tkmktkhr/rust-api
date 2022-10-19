@@ -26,23 +26,23 @@ pub async fn index(path: web::Path<(i32, String)>) -> impl Responder {
 }
 
 // TODO transfer to response.
-#[derive(Debug, Serialize)]
-struct NotFoundError {
-    msg: String,
-}
+// #[derive(Debug, Serialize)]
+// struct NotFoundError {
+//     msg: String,
+// }
 
 // TODO transfer to response.
-#[derive(Debug, Serialize)]
-pub enum Res {
-    FindUserOutputData(Option<FindUserOutputData>),
-    NotFoundError(NotFoundError),
-}
+// #[derive(Debug, Serialize)]
+// pub enum Res {
+//     FindUserOutputData(Option<FindUserOutputData>),
+//     NotFoundError(NotFoundError),
+// }
 
 // TODO transfer to response.
-#[derive(Debug, Serialize)]
-pub struct ResponseStruct {
-    res: Res,
-}
+// #[derive(Debug, Serialize)]
+// pub struct ResponseStruct {
+//     res: Res,
+// }
 
 #[get("/users/{id}")]
 // pub async fn get_user_by_id(path: web::Path<i32>) -> web::Json<Option<FindUserOutputData>> {
