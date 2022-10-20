@@ -4,15 +4,18 @@ use crate::{
         get::GetUsersControllerTrait,
         post::{PostUsersController, PostUsersControllerTrait},
     },
-    interfaces::requests::users::create_user_request::CreateUserReq,
-    use_cases::users::find_user::FindUserOutputData,
+    interfaces::{
+        requests::users::create_user_request::CreateUserReq,
+        responses::responses::{NotFoundError, Res, ResponseStruct},
+    },
+    // use_cases::users::find_user::FindUserOutputData,
 };
 use actix_web::{
     get, http, post,
     web::{self, Json},
     HttpResponse, Responder,
 };
-use serde::Serialize;
+// use serde::Serialize;
 
 #[get("/healthCheck")]
 pub async fn health_check() -> impl Responder {
