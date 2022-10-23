@@ -1,10 +1,5 @@
 use serde::Serialize;
 
-#[derive(Debug, Serialize)]
-struct NotFoundError {
-    msg: String,
-}
-
 // TODO abstract. Use <T>
 // TODO NotFoundError -> General Error.
 #[derive(Debug, Serialize)]
@@ -15,5 +10,11 @@ pub enum Res<T> {
 
 #[derive(Debug, Serialize)]
 pub struct ResponseStruct<T> {
-    res: Res<T>,
+    pub res: Res<T>,
+}
+
+// Errors
+#[derive(Debug, Serialize)]
+pub struct NotFoundError {
+    pub msg: String,
 }
