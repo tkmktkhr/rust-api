@@ -33,7 +33,6 @@ impl FindUserInteractor {
         // NOTE Application Logic is here
 
         // FIXME Dependency Inversion principle.
-        // FIXME Get Indicated user.
         let result: Result<Vec<User>, Error> = sql_query(
             "
             SELECT
