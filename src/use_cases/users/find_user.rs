@@ -11,6 +11,10 @@ pub struct FindUserInputData {
     pub id: i32,
 }
 
+pub struct FindUserAfterUserCreationInputData {
+    pub id: i32,
+}
+
 // CHECK Think about Serializer here. It seems to oppose to Clean Architecture.
 // DTO<Output>
 #[derive(Debug, Serialize)]
@@ -70,6 +74,58 @@ impl FindUserInteractor {
         };
         let output = FindUserOutputData { user: user_output };
         return Some(output);
+    }
+
+    // TODO TRY most of codes are same as get_user_by_id.
+    pub fn get_user_after_user_creation(input: FindUserInputData) -> FindUserOutputData {
+        // TODO return type is Result? it should return None for Not found.
+    pub fn get_user_by_id(input: FindUserInputData) -> Option<FindUserOutputData> {
+      use diesel::prelude::*;
+
+      // REFACTOR connection should be taken as global object.
+      let pool = connection::get_connection_pool();
+      let connection = pool.get().unwrap();
+
+      // NOTE Application Logic is here
+
+      // FIXME Dependency Inversion principle.
+      let result: Result<Vec<User>, Error> = sql_query(
+          "
+          SELECT
+              id,
+              first_name,
+              last_name,
+              email
+          FROM
+              users
+          WHERE
+              id = ?
+          ",
+      )
+      .bind::<Integer, _>(input.id)
+      .load::<User>(&connection);
+      print!("{:?}", result);
+
+      let found_user = match result {
+          Ok(vec) => vec,
+          Err(e) => panic!("Problem creating the file: {:?}", e), // TODO ERROR PROCESS
+      };
+
+      if found_user.is_empty() {
+          return None;
+      }
+
+      // TODO user should be only one.
+      let user_entity_output = &found_user[0];
+
+      let user_output = UserEntity {
+          id: Some(user_entity_output.id),
+          first_name: Some(user_entity_output.first_name.clone()),
+          last_name: user_entity_output.last_name.clone(),
+          email: user_entity_output.email.clone(),
+      };
+      let output = FindUserOutputData { user: user_output };
+      return Some(output);
     }
 
     // TODO GET plural users.
