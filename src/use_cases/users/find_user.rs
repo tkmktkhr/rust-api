@@ -12,7 +12,9 @@ pub struct FindUserInputData {
 }
 
 pub struct FindUserAfterUserCreationInputData {
-    pub id: i32,
+    pub first_name: String,
+    pub last_name: String,
+    pub email: String,
 }
 
 // CHECK Think about Serializer here. It seems to oppose to Clean Architecture.
@@ -77,9 +79,9 @@ impl FindUserInteractor {
     }
 
     // TODO TRY most of codes are same as get_user_by_id.
-    pub fn get_user_after_user_creation(input: FindUserInputData) -> FindUserOutputData {
+    pub fn get_user_after_user_creation(input: FindUserAfterUserCreationInputData) -> FindUserOutputData {
         // TODO return type is Result? it should return None for Not found.
-    pub fn get_user_by_id(input: FindUserInputData) -> Option<FindUserOutputData> {
+    pub fn get_user_by_id(input: FindUserAfterUserCreationInputData) -> Option<FindUserOutputData> {
       use diesel::prelude::*;
 
       // REFACTOR connection should be taken as global object.
@@ -99,7 +101,9 @@ impl FindUserInteractor {
           FROM
               users
           WHERE
-              id = ?
+          first_name = ?,
+          last_name = ?,
+          email = ?
           ",
       )
       .bind::<Integer, _>(input.id)
