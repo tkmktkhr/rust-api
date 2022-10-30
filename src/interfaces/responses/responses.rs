@@ -29,7 +29,7 @@ pub enum CustomError {
 
 #[derive(Debug, Serialize)]
 pub struct NotFoundError {
-    pub num: NonZeroU16,
+    // pub code: http::StatusCode,
     pub msg: String,
 }
 
