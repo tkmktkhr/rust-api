@@ -1,3 +1,6 @@
+use std::num::NonZeroU16;
+
+use actix_web::http;
 use serde::Serialize;
 
 // TODO abstract. Use <T>
@@ -13,19 +16,20 @@ pub enum Res<T, E> {
 // }
 
 #[derive(Debug, Serialize)]
-pub struct ResponseStruct<T, E> {
-    pub res: Res<T, E>,
+pub struct ResponseStruct<T, CustomError> {
+    pub res: Res<T, CustomError>,
 }
 
 // Errors
 #[derive(Debug, Serialize)]
-pub enum CustomError<T> {
+pub enum CustomError {
     NotFoundError(NotFoundError),
     BadRequestError(BadRequestError),
 }
 
 #[derive(Debug, Serialize)]
 pub struct NotFoundError {
+    pub num: NonZeroU16,
     pub msg: String,
 }
 
