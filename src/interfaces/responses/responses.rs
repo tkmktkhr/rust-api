@@ -22,7 +22,7 @@ pub struct ResponseStruct<T, CustomError> {
 
 // Errors
 #[derive(Debug, Serialize)]
-pub struct CustomErrorStruct<T, CustomError> {
+pub struct CustomErrorStruct<CustomError> {
     pub code: http::StatusCode,
     pub err: CustomError,
 }
