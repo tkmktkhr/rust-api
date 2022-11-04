@@ -46,7 +46,7 @@ pub async fn get_user_by_id(path: web::Path<i32>) -> impl Responder {
     // let output_clone = output.clone();
 
     let obj = NotFoundError {
-        code: http::StatusCode::NOT_FOUND,
+        // code: http::StatusCode::NOT_FOUND,
         msg: "NOT FOUND".to_string(),
     };
 

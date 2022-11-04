@@ -21,7 +21,7 @@ pub struct ResponseStruct<T, CustomError> {
 // Errors
 #[derive(Debug, Serialize)]
 pub struct CustomErrorStruct<CustomError> {
-    pub code: http::StatusCode,
+    // pub code: http::StatusCode,
     pub err: CustomError,
 }
 
@@ -39,7 +39,8 @@ pub enum CustomError {
 
 #[derive(Debug, Serialize)]
 pub struct NotFoundError {
-    pub code: http::StatusCode,
+    // TODO add code.
+    // pub code: http::StatusCode,
     pub msg: String,
 }
 
