@@ -1,21 +1,16 @@
-use actix_web::http;
 use serde::Serialize;
 
 // TODO abstract. Use <T>
 // TODO NotFoundError -> General Error.
 #[derive(Debug, Serialize)]
-pub enum Res<T, E> {
-    FindUserOutputData(Option<T>),
-    CustomError(E),
+pub enum Res<T> {
+    FindUserOutputData(Option<T>), // to general object.
+    NotFoundError(NotFoundError),
 }
-// pub enum Res<T> {
-//   FindUserOutputData(Option<T>),
-//   NotFoundError(NotFoundError),
-// }
 
 #[derive(Debug, Serialize)]
-pub struct ResponseStruct<T, CustomError> {
-    pub res: Res<T, CustomError>,
+pub struct ResponseStruct<T> {
+    pub res: Res<T>,
 }
 
 // Errors
