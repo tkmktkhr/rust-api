@@ -108,7 +108,9 @@ impl FindUserInteractor {
           email = ?
           ",
         )
-        .bind::<Integer, _>(input.id)
+        .bind::<String, _>(input.first_name)
+        .bind::<String, _>(input.last_name)
+        .bind::<String, _>(input.email)
         .load::<User>(&connection);
         print!("{:?}", result);
 
