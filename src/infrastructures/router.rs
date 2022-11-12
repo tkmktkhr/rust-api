@@ -8,7 +8,7 @@ use crate::{
         requests::users::create_user_request::CreateUserReq,
         responses::responses::{NotFoundError, Res, ResponseStruct},
     },
-    // use_cases::users::find_user::FindUserOutputData,
+    // use_cases::users::find_user::OutputData,
 };
 use actix_web::{
     get, http, post,
@@ -28,7 +28,7 @@ pub async fn index(path: web::Path<(i32, String)>) -> impl Responder {
 }
 
 #[get("/users/{id}")]
-// pub async fn get_user_by_id(path: web::Path<i32>) -> web::Json<Option<FindUserOutputData>> {
+// pub async fn get_user_by_id(path: web::Path<i32>) -> web::Json<Option<OutputData>> {
 pub async fn get_user_by_id(path: web::Path<i32>) -> impl Responder {
     // Controller Pattern 1
     // NOTE Type annotation(: GetUsersController) is necessary in this case.
@@ -59,7 +59,7 @@ pub async fn get_user_by_id(path: web::Path<i32>) -> impl Responder {
         ),
         Some(response) => (
             web::Json(ResponseStruct {
-                res: Res::FindUserOutputData(Some(response)),
+                res: Res::OutputData(Some(response)),
             }),
             http::StatusCode::OK,
         ),
@@ -69,7 +69,7 @@ pub async fn get_user_by_id(path: web::Path<i32>) -> impl Responder {
 }
 
 #[get("/users/{id}/{name}")]
-// pub async fn get_user(path: web::Path<(i32, String)>) -> web::Json<FindUserOutputData> {
+// pub async fn get_user(path: web::Path<(i32, String)>) -> web::Json<OutputData> {
 pub async fn get_users(path: web::Path<(i32, String)>) -> impl Responder {
     // Type annotation(: GetUsersController) is necessary in this case.
     let user_controller: GetUsersController =

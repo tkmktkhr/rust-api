@@ -4,7 +4,7 @@ use serde::Serialize;
 // TODO NotFoundError -> General Error.
 #[derive(Debug, Serialize)]
 pub enum Res<T> {
-    FindUserOutputData(Option<T>), // to general object.
+    OutputData(Option<T>), // to general object.
     NotFoundError(NotFoundError),
 }
 
