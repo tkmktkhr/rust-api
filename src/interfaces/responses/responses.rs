@@ -4,8 +4,8 @@ use serde::Serialize;
 // TODO NotFoundError -> General Error.
 #[derive(Debug, Serialize)]
 pub enum Res<T> {
-    OutputData(Option<T>), // to general object.
-    NotFoundError(NotFoundError),
+    OutputData(Option<T>),        // to general object.
+    NotFoundError(NotFoundError), // todo arrange all errors here?
 }
 
 #[derive(Debug, Serialize)]
