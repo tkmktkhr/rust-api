@@ -1,8 +1,11 @@
 use crate::{
     interfaces::controllers::users::get::GetUsersController,
-    interfaces::controllers::users::{
-        get::GetUsersControllerTrait,
-        post::{PostUsersController, PostUsersControllerTrait},
+    interfaces::{
+        controllers::users::{
+            get::GetUsersControllerTrait,
+            post::{PostUsersController, PostUsersControllerTrait},
+        },
+        responses::responses::CustomError,
     },
     interfaces::{
         requests::users::create_user_request::CreateUserReq,
@@ -45,7 +48,7 @@ pub async fn get_user_by_id(path: web::Path<i32>) -> impl Responder {
     println!("{:?}", output);
     // let output_clone = output.clone();
 
-    let obj = NotFoundError {
+    let obj = CustomError {
         // code: http::StatusCode::NOT_FOUND,
         msg: "NOT FOUND".to_string(),
     };
@@ -53,7 +56,7 @@ pub async fn get_user_by_id(path: web::Path<i32>) -> impl Responder {
     let res = match output {
         None => (
             web::Json(ResponseStruct {
-                res: Res::NotFoundError(obj),
+                res: Res::CustomError(obj),
             }),
             http::StatusCode::NOT_FOUND,
         ),
