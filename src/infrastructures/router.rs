@@ -48,7 +48,7 @@ pub async fn get_user_by_id(path: web::Path<i32>) -> impl Responder {
     println!("{:?}", output);
     // let output_clone = output.clone();
 
-    let obj = CustomError {
+    let not_found = CustomError {
         // code: http::StatusCode::NOT_FOUND,
         msg: "NOT FOUND".to_string(),
     };
@@ -56,7 +56,7 @@ pub async fn get_user_by_id(path: web::Path<i32>) -> impl Responder {
     let res = match output {
         None => (
             web::Json(ResponseStruct {
-                res: Res::CustomError(obj),
+                res: Res::CustomError(not_found),
             }),
             http::StatusCode::NOT_FOUND,
         ),
@@ -90,7 +90,6 @@ pub async fn create_user(body: web::Json<CreateUserReq>) -> impl Responder {
     let first_name = &body.first_name;
     let last_name = &body.last_name;
     let email = &body.email;
-    println!("{:?}", email);
 
     let user_controller: PostUsersController =
         PostUsersControllerTrait::new(String::from("PostUsers"));
@@ -99,5 +98,10 @@ pub async fn create_user(body: web::Json<CreateUserReq>) -> impl Responder {
 
     let user = output.user;
     // TODO response code 200 with a created user object.
-    (web::Json(user), http::StatusCode::CREATED)
+    (
+        web::Json(ResponseStruct {
+            res: Res::OutputData(Some(user)),
+        }),
+        http::StatusCode::CREATED,
+    )
 }
