@@ -8,7 +8,7 @@ pub struct User {
     pub id: i32,
     pub first_name: String,
     pub last_name: Option<String>,
-    pub email: Option<String>,
+    pub email: String, // Unique
 }
 
 #[derive(Insertable)]
