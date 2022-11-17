@@ -9,7 +9,7 @@ use crate::{
     },
     interfaces::{
         requests::users::create_user_request::CreateUserReq,
-        responses::responses::{NotFoundError, Res, ResponseStruct},
+        responses::responses::{Res, ResponseStruct},
     },
     // use_cases::users::find_user::OutputData,
 };
