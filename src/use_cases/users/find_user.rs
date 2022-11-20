@@ -179,7 +179,7 @@ mod tests {
             1,
             "abc".to_string(),
             name.to_owned(),
-            Some("a@example.com".to_string()),
+            "a@example.com".to_string(),
         );
 
         let user = get_user(id);
