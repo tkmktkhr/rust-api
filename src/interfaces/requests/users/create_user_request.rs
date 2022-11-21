@@ -4,5 +4,5 @@ use serde::{Deserialize, Serialize};
 pub struct CreateUserReq {
     pub first_name: String,
     pub last_name: String,
-    pub email: Option<String>,
+    pub email: String,
 }
