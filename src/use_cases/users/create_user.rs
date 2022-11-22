@@ -32,7 +32,7 @@ impl CreateUserInteractor {
         let new_users = NewUser {
             first_name: input.first_name,
             last_name: Some(input.last_name),
-            email: Some(input.email),
+            email: input.email,
         };
         // NOTE diesel get_result method does not support MYSQL.
         // REFACTOR inert only one user.
