@@ -13,7 +13,7 @@ pub trait PostUsersControllerTrait {
         &self,
         first_name: &str,
         last_name: &str,
-        email: &Option<String>,
+        email: &String,
     ) -> CreateUserOutputData; // remove here but it will be error in Controller because there is no abstract concept in Rust.
 }
 
@@ -28,7 +28,7 @@ impl PostUsersControllerTrait for PostUsersController {
         &self,
         first_name: &str,
         last_name: &str,
-        email: &Option<String>,
+        email: &String,
     ) -> CreateUserOutputData {
         let input_data = create_user::CreateUserInputData {
             first_name: first_name.to_string(),
