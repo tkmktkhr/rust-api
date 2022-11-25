@@ -4,6 +4,7 @@ use crate::infrastructures::models::user::User;
 use diesel::result::Error;
 use diesel::sql_query;
 use diesel::sql_types::Integer;
+// use diesel::RunQueryDsl::load;
 use serde::Serialize;
 
 // DTO<Input> validation should be here?
@@ -149,8 +150,7 @@ fn get_user(id: i32) -> UserEntity {
         id,
         "abc".to_string(),
         " def".to_owned(),
-        // Some("a@example.com".to_string()),
-        None,
+        "a@example.com".to_string(),
     )
 }
 
