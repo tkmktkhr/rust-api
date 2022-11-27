@@ -33,7 +33,7 @@ impl PostUsersControllerTrait for PostUsersController {
         let input_data = create_user::CreateUserInputData {
             first_name: first_name.to_string(),
             last_name: last_name.to_string(),
-            email: email.clone().unwrap_or_default(),
+            email: email.clone(),
         };
         let result = create_user::CreateUserInteractor::create(input_data);
         return result;
