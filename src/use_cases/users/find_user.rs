@@ -4,7 +4,6 @@ use crate::infrastructures::models::user::User;
 use diesel::result::Error;
 use diesel::sql_query;
 use diesel::sql_types::Integer;
-// use diesel::RunQueryDsl::load;
 use serde::Serialize;
 
 // DTO<Input> validation should be here?
