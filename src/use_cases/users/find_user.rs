@@ -54,7 +54,6 @@ impl FindUserInteractor {
         )
         .bind::<Integer, _>(input.id)
         .load::<User>(&connection);
-        print!("{:?}", result);
 
         let found_user = match result {
             Ok(vec) => vec,
