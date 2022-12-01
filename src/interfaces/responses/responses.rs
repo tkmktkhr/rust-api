@@ -26,11 +26,11 @@ pub struct CustomError {
     pub msg: String,
 }
 
-#[derive(Debug, Serialize)]
-pub enum CustomError1 {
-    NotFoundError(NotFoundError),
-    BadRequestError(BadRequestError),
-}
+// #[derive(Debug, Serialize)]
+// pub enum CustomError1 {
+//     NotFoundError(NotFoundError),
+//     BadRequestError(BadRequestError),
+// }
 
 #[derive(Debug, Serialize)]
 pub struct NotFoundError {
