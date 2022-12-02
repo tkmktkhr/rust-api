@@ -23,6 +23,7 @@ pub struct CustomErrorStruct<CustomError> {
 
 #[derive(Debug, Serialize)]
 pub struct CustomError {
+    // pub code: http::StatusCode,
     pub msg: String,
 }
 
@@ -32,14 +33,14 @@ pub struct CustomError {
 //     BadRequestError(BadRequestError),
 // }
 
-#[derive(Debug, Serialize)]
-pub struct NotFoundError {
-    // TODO add code.
-    // pub code: http::StatusCode,
-    pub msg: String,
-}
+// #[derive(Debug, Serialize)]
+// pub struct NotFoundError {
+//     // TODO add code.
+//     // pub code: http::StatusCode,
+//     pub msg: String,
+// }
 
-#[derive(Debug, Serialize)]
-pub struct BadRequestError {
-    pub msg: String,
-}
+// #[derive(Debug, Serialize)]
+// pub struct BadRequestError {
+//     pub msg: String,
+// }
