@@ -35,6 +35,7 @@ impl GetUsersControllerTrait for GetUsersController {
         //     None => None, // TODO return results as a zero value. panic!("There was not that user: {:?}", error)
         // };
         let return_data = check_user_existence(output_data);
+        // REFACTOR controller has to return not found.
         return return_data;
     }
 }
