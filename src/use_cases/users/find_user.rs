@@ -53,8 +53,8 @@ impl FindUserInteractor {
             ",
         )
         .bind::<Integer, _>(input.id)
-        .load::<User>(&connection); // was fine before.
-                                    // .get_results(&connection);
+        .get_results(&connection);
+        // .load::<User>(&connection); // was fine before.
 
         let found_user = match result {
             Ok(vec) => vec,
