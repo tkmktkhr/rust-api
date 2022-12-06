@@ -39,7 +39,7 @@ impl FindUserInteractor {
         // NOTE Application Logic is here
 
         // FIXME Dependency Inversion principle.
-        let result: Result<Vec<User>, Error> = sql_query(
+        let user_vec: Result<Vec<User>, Error> = sql_query(
             "
             SELECT
                 id,
@@ -56,7 +56,7 @@ impl FindUserInteractor {
         .get_results(&connection);
         // .load::<User>(&connection); // was fine before.
 
-        let found_user = match result {
+        let found_user = match user_vec {
             Ok(vec) => vec,
             Err(e) => panic!("Problem creating the file: {:?}", e), // TODO ERROR PROCESS
         };
