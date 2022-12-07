@@ -28,7 +28,6 @@ pub struct FindUserOutputData {
 pub struct FindUserInteractor {}
 
 impl FindUserInteractor {
-    // TODO return type is Result? it should return None for Not found.
     pub fn get_user_by_id(input: FindUserInputData) -> Option<FindUserOutputData> {
         use diesel::prelude::*;
 
