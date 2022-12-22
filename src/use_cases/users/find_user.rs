@@ -8,7 +8,7 @@ use serde::Serialize;
 
 // DTO<Input> validation should be here?
 pub struct FindUserInputData {
-    pub id: i32,
+    pub id: u32,
 }
 
 pub struct FindUserAfterUserCreationInputData {
@@ -52,8 +52,8 @@ impl FindUserInteractor {
             ",
         )
         .bind::<Integer, _>(input.id)
-        .get_results(&connection);
-        // .load::<User>(&connection); // was fine before.
+        .load::<User>(&connection); // was fine before.
+                                    // .get_results(&connection);
 
         let found_user = match user_vec {
             Ok(vec) => vec,
@@ -143,7 +143,7 @@ impl FindUserInteractor {
 }
 
 // sample function
-fn get_user(id: i32) -> UserEntity {
+fn get_user(id: u32) -> UserEntity {
     UserEntity::new(
         id,
         "abc".to_string(),
@@ -154,7 +154,7 @@ fn get_user(id: i32) -> UserEntity {
 
 // For View
 struct FindUserPresenter {
-    pub id: i32,
+    pub id: u32,
 }
 
 #[cfg(test)]
