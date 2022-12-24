@@ -49,7 +49,7 @@ impl CreateUserInteractor {
     }
 }
 
-fn create_user(id: i32) -> user::UserEntity {
+fn create_user(id: u32) -> user::UserEntity {
     user::UserEntity::new(
         id,
         "abc".to_string(),
