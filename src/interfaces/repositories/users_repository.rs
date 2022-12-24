@@ -6,7 +6,7 @@ pub struct UserRepository {
 
 pub trait UserRepositoryTrait {
     fn new(name: String) -> Self;
-    // fn find_one_by_id(&self, id: i32) -> FindUserOutputData; // remove here but it will be error in Controller because there is no abstract concept in Rust.
+    // fn find_one_by_id(&self, id: u32) -> FindUserOutputData; // remove here but it will be error in Controller because there is no abstract concept in Rust.
 }
 
 impl UserRepositoryTrait for UserRepository {
@@ -16,7 +16,7 @@ impl UserRepositoryTrait for UserRepository {
         Self { name }
     }
 
-    // fn find_one_by_id(&self, id: i32) -> FindUserOutputData {
+    // fn find_one_by_id(&self, id: u32) -> FindUserOutputData {
     //     // NOTE Clean Architecture Sample.
     //     // var inputData = new UserCreateInputData(userName);
     //     // userCreateUseCase.Handle(inputData);
