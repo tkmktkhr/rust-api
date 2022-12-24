@@ -25,14 +25,14 @@ pub async fn health_check() -> impl Responder {
 }
 
 #[get("/")]
-pub async fn index(path: web::Path<(i32, String)>) -> impl Responder {
+pub async fn index(path: web::Path<(u32, String)>) -> impl Responder {
     let (id, name) = path.into_inner();
     HttpResponse::Ok().body(format!("Hello {}! id:{}", name, id))
 }
 
 #[get("/users/{id}")]
-// pub async fn get_user_by_id(path: web::Path<i32>) -> web::Json<Option<OutputData>> {
-pub async fn get_user_by_id(path: web::Path<i32>) -> impl Responder {
+// pub async fn get_user_by_id(path: web::Path<u32>) -> web::Json<Option<OutputData>> {
+pub async fn get_user_by_id(path: web::Path<u32>) -> impl Responder {
     // Controller Pattern 1
     // NOTE Type annotation(: GetUsersController) is necessary in this case.
     let user_controller: GetUsersController =
@@ -72,8 +72,8 @@ pub async fn get_user_by_id(path: web::Path<i32>) -> impl Responder {
 }
 
 #[get("/users/{id}/{name}")]
-// pub async fn get_user(path: web::Path<(i32, String)>) -> web::Json<OutputData> {
-pub async fn get_users(path: web::Path<(i32, String)>) -> impl Responder {
+// pub async fn get_user(path: web::Path<(u32, String)>) -> web::Json<OutputData> {
+pub async fn get_users(path: web::Path<(u32, String)>) -> impl Responder {
     // Type annotation(: GetUsersController) is necessary in this case.
     let user_controller: GetUsersController =
         GetUsersControllerTrait::new(String::from("GetUsers"));
