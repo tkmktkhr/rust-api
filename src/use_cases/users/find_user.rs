@@ -3,7 +3,8 @@ use crate::infrastructures::dbs::mysql::connection;
 use crate::infrastructures::models::user::User;
 use diesel::result::Error;
 use diesel::sql_query;
-use diesel::sql_types::Integer;
+use diesel::sql_types::{Integer, Unsigned};
+use rust_api::schema::users;
 use serde::Serialize;
 
 // DTO<Input> validation should be here?
@@ -33,12 +34,12 @@ impl FindUserInteractor {
 
         // REFACTOR connection should be taken as global object.
         let pool = connection::get_connection_pool();
-        let connection = pool.get().unwrap();
+        let mut connection = pool.get().unwrap();
 
         // NOTE Application Logic is here
 
         // FIXME Dependency Inversion principle.
-        let user_vec: Result<Vec<User>, Error> = sql_query(
+        let user_vec = sql_query(
             "
             SELECT
                 id,
@@ -51,9 +52,12 @@ impl FindUserInteractor {
                 id = ?
             ",
         )
-        .bind::<Integer, _>(input.id)
-        .load::<User>(&connection); // was fine before.
-                                    // .get_results(&connection);
+        .bind::<Unsigned<Integer>, _>(input.id)
+        .load::<User>(&mut connection);
+        // .get_results::<User>(&mut connection); // This is also fine.
+
+        // NOTE response type is unknown.
+        // let user_vec = users.find(input.id).get_results::<User>(&mut connection);
 
         let found_user = match user_vec {
             Ok(vec) => vec,
