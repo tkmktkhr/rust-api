@@ -27,7 +27,7 @@ impl CreateUserInteractor {
 
         // // REFACTOR connection should be taken as global object.
         let pool = connection::get_connection_pool();
-        let connection = pool.get().unwrap();
+        let mut connection = pool.get().unwrap();
 
         let new_users = NewUser {
             first_name: input.first_name,
@@ -38,7 +38,7 @@ impl CreateUserInteractor {
         // REFACTOR inert only one user.
         let results = diesel::insert_into(users)
             .values(&new_users)
-            .execute(&connection);
+            .execute(&mut connection);
         // TODO handle error pattern.
         let value = results.unwrap_or(0); // return value is the number of registered users.
 
