@@ -3,7 +3,7 @@ use crate::infrastructures::dbs::mysql::connection;
 use crate::infrastructures::models::user::User;
 use diesel::result::Error;
 use diesel::sql_query;
-use diesel::sql_types::{Integer, Unsigned};
+use diesel::sql_types::{Integer, Unsigned, VarChar};
 use rust_api::schema::users;
 use serde::Serialize;
 
@@ -82,67 +82,67 @@ impl FindUserInteractor {
     }
 
     // TODO TRY most of codes are same as get_user_by_id.
-    // pub fn get_user_after_user_creation(
-    //     input: FindUserAfterUserCreationInputData,
-    // ) -> Option<FindUserOutputData> {
-    //     // TODO return type is Result? it should return None for Not found.
-    //     // pub fn get_user_by_id(input: FindUserAfterUserCreationInputData) -> Option<FindUserOutputData> {
-    //     use diesel::prelude::*;
+    pub fn get_user_after_user_creation(
+        input: FindUserAfterUserCreationInputData,
+    ) -> Option<FindUserOutputData> {
+        // TODO return type is Result? it should return None for Not found.
+        // pub fn get_user_by_id(input: FindUserAfterUserCreationInputData) -> Option<FindUserOutputData> {
+        use diesel::prelude::*;
 
-    //     // REFACTOR connection should be taken as global object.
-    //     let pool = connection::get_connection_pool();
-    //     let connection = pool.get().unwrap();
+        // REFACTOR connection should be taken as global object.
+        let pool = connection::get_connection_pool();
+        let mut connection = pool.get().unwrap();
 
-    //     // NOTE Application Logic is here
+        // NOTE Application Logic is here
 
-    //     // FIXME Dependency Inversion principle.
-    //     let result: Result<Vec<User>, Error> = sql_query(
-    //         "
-    //       SELECT
-    //           id,
-    //           first_name,
-    //           last_name,
-    //           email
-    //       FROM
-    //           users
-    //       WHERE
-    //       first_name = ?,
-    //       last_name = ?,
-    //       email = ?
-    //       ",
-    //     )
-    //     .bind::<String, _>(input.first_name)
-    //     .bind::<String, _>(input.last_name)
-    //     .bind::<String, _>(input.email)
-    //     .load::<User>(&connection);
-    //     print!("{:?}", result);
+        // FIXME Dependency Inversion principle.
+        let result: Result<Vec<User>, Error> = sql_query(
+            "
+          SELECT
+              id,
+              first_name,
+              last_name,
+              email
+          FROM
+              users
+          WHERE
+          first_name = ?,
+          last_name = ?,
+          email = ?
+          ",
+        )
+        .bind::<VarChar, _>(input.first_name)
+        .bind::<VarChar, _>(input.last_name)
+        .bind::<VarChar, _>(input.email)
+        .load::<User>(&mut connection);
+        print!("{:?}", result);
 
-    //     let found_user = match result {
-    //         Ok(vec) => vec,
-    //         Err(e) => panic!("Problem creating the file: {:?}", e), // TODO ERROR PROCESS
-    //     };
+        let found_user = match result {
+            Ok(vec) => vec,
+            Err(e) => panic!("Problem creating the file: {:?}", e), // TODO ERROR PROCESS
+        };
 
-    //     if found_user.is_empty() {
-    //         return None;
-    //     }
+        if found_user.is_empty() {
+            return None;
+        }
 
-    //     // TODO user should be only one.
-    //     let user_entity_output = &found_user[0];
+        // TODO user should be only one.
+        let user_entity_output = &found_user[0];
 
-    //     let user_output = UserEntity {
-    //         id: Some(user_entity_output.id),
-    //         first_name: Some(user_entity_output.first_name.clone()),
-    //         last_name: user_entity_output.last_name.clone(),
-    //         email: user_entity_output.email.clone(),
-    //     };
-    //     let output = FindUserOutputData { user: user_output };
-    //     return Some(output);
-    // }
+        let user_output = UserEntity {
+            id: Some(user_entity_output.id),
+            first_name: Some(user_entity_output.first_name.clone()),
+            last_name: user_entity_output.last_name.clone(),
+            email: user_entity_output.email.clone(),
+        };
+        let output = FindUserOutputData { user: user_output };
+        return Some(output);
+    }
 
     // TODO GET plural users.
     // pub fn get_users(input: FindUserInputData) -> FindUserOutputData {
-    // use rust_api::schema::users::dsl::users;
-    // let results = users.load::<User>(&connection);
+    //     use rust_api::schema::users::dsl::users;
+    //     let results = users.load::<User>(&connection);
     // }
 }
 
