@@ -81,7 +81,7 @@ impl FindUserInteractor {
         return Some(output);
     }
 
-    // TODO TRY most of codes are same as get_user_by_id.
+    // REFACTOR TRY most of codes are same as get_user_by_id.
     pub fn get_user_after_user_creation(
         input: FindUserAfterUserCreationInputData,
     ) -> Option<FindUserOutputData> {
