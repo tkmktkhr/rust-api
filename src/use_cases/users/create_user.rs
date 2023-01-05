@@ -27,21 +27,20 @@ impl CreateUserInteractor {
 
         // // REFACTOR connection should be taken as global object.
         let pool = connection::get_connection_pool();
-        let connection = pool.get().unwrap();
+        let mut connection = pool.get().unwrap();
 
         let new_users = NewUser {
             first_name: input.first_name,
             last_name: Some(input.last_name),
-            email: Some(input.email),
+            email: input.email,
         };
         // NOTE diesel get_result method does not support MYSQL.
         // REFACTOR inert only one user.
         let results = diesel::insert_into(users)
             .values(&new_users)
-            .execute(&connection);
+            .execute(&mut connection);
         // TODO handle error pattern.
         let value = results.unwrap_or(0); // return value is the number of registered users.
-        println!("{:?}", value);
 
         // TODO get created user. if possible.
         let user = create_user(123);
@@ -50,11 +49,11 @@ impl CreateUserInteractor {
     }
 }
 
-fn create_user(id: i32) -> user::UserEntity {
+fn create_user(id: u32) -> user::UserEntity {
     user::UserEntity::new(
         id,
         "abc".to_string(),
         " def".to_owned(),
-        Some("a@example.com".to_string()),
+        "a@example.com".to_string(),
     )
 }

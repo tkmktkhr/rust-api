@@ -3,20 +3,15 @@ use serde::{Deserialize, Serialize};
 
 #[derive(Debug, Serialize, Deserialize)]
 pub struct UserEntity {
-    pub id: Option<i32>,
+    pub id: Option<u32>,
     pub first_name: Option<String>,
     pub last_name: Option<String>,
-    pub email: Option<String>,
+    pub email: String,
 }
 
 // Business Rules are here.
 impl UserEntity {
-    pub fn new(
-        id: i32,
-        first_name: String,
-        last_name: String,
-        email: Option<String>,
-    ) -> UserEntity {
+    pub fn new(id: u32, first_name: String, last_name: String, email: String) -> UserEntity {
         UserEntity {
             id: Some(id),
             first_name: Some(first_name),
