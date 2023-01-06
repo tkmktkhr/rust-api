@@ -9,6 +9,10 @@ Rust api server
 
 `cargo build`
 
+## Test
+
+`cargo test`
+
 ## Run
 
 ### Local
