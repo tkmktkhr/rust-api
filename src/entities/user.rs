@@ -1,29 +1,34 @@
 use crate::utils::string_util::string_util;
 use serde::{Deserialize, Serialize};
 
-#[derive(Debug, Serialize, Deserialize)]
+#[derive(Debug, Serialize, Deserialize, PartialEq)]
 pub struct UserEntity {
-    pub id: Option<u32>,
-    pub first_name: Option<String>,
-    pub last_name: Option<String>,
-    pub email: String,
+    id: Option<u32>,
+    first_name: String,
+    last_name: Option<String>,
+    email: String,
 }
 
 // Business Rules are here.
 impl UserEntity {
-    pub fn new(id: u32, first_name: String, last_name: String, email: String) -> UserEntity {
+    pub fn new(
+        id: u32,
+        first_name: String,
+        last_name: Option<String>,
+        email: String,
+    ) -> UserEntity {
         UserEntity {
             id: Some(id),
-            first_name: Some(first_name),
-            last_name: Some(last_name),
+            first_name,
+            last_name,
             email,
         }
     }
 
     pub fn full_name(&self) -> String {
-        let fname = string_util::check_string_return_string(&self.first_name);
+        let fname = &self.first_name;
         let lname = string_util::check_string_return_string(&self.last_name);
-        fname + &lname.to_owned()
+        fname.to_owned() + &lname.to_owned()
 
         // Pattern1
         // let ref first = *user.first_name;
