@@ -48,6 +48,7 @@ pub async fn get_user_by_id(path: web::Path<u32>) -> impl Responder {
     println!("{:?}", output);
     // let output_clone = output.clone();
 
+    // TODO Define it other place in order to be used from everywhere.
     let not_found = CustomError {
         // code: http::StatusCode::NOT_FOUND,
         msg: "NOT FOUND".to_string(),
