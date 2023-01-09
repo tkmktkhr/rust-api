@@ -53,7 +53,7 @@ fn create_user(id: u32) -> user::UserEntity {
     user::UserEntity::new(
         id,
         "abc".to_string(),
-        " def".to_owned(),
+        Some(" def".to_owned()),
         "a@example.com".to_string(),
     )
 }
