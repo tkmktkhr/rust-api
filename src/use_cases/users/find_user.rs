@@ -71,12 +71,12 @@ impl FindUserInteractor {
         // TODO user should be only one.
         let user_entity_output = &found_user[0];
 
-        let user_output = UserEntity {
-            id: Some(user_entity_output.id),
-            first_name: Some(user_entity_output.first_name.clone()),
-            last_name: user_entity_output.last_name.clone(),
-            email: user_entity_output.email.clone(),
-        };
+        let user_output = UserEntity::new(
+            user_entity_output.id,
+            user_entity_output.first_name.clone(),
+            user_entity_output.last_name.clone(),
+            user_entity_output.email.clone(),
+        );
         let output = FindUserOutputData { user: user_output };
         return Some(output);
     }
@@ -129,12 +129,12 @@ impl FindUserInteractor {
         // TODO user should be only one.
         let user_entity_output = &found_user[0];
 
-        let user_output = UserEntity {
-            id: Some(user_entity_output.id),
-            first_name: Some(user_entity_output.first_name.clone()),
-            last_name: user_entity_output.last_name.clone(),
-            email: user_entity_output.email.clone(),
-        };
+        let user_output = UserEntity::new(
+            user_entity_output.id,
+            user_entity_output.first_name.clone(),
+            user_entity_output.last_name.clone(),
+            user_entity_output.email.clone(),
+        );
         let output = FindUserOutputData { user: user_output };
         return Some(output);
     }
@@ -151,7 +151,7 @@ fn get_user(id: u32) -> UserEntity {
     UserEntity::new(
         id,
         "abc".to_string(),
-        " def".to_owned(),
+        Some(" def".to_owned()),
         "a@example.com".to_string(),
     )
 }
@@ -180,15 +180,12 @@ mod tests {
         let expected_user = UserEntity::new(
             1,
             "abc".to_string(),
-            name.to_owned(),
+            Some(name.to_owned()),
             "a@example.com".to_string(),
         );
 
         let user = get_user(id);
 
-        assert_eq!(user.id, expected_user.id);
-        assert_eq!(user.first_name, expected_user.first_name);
-        assert_eq!(user.last_name, expected_user.last_name);
-        assert_eq!(user.email, expected_user.email);
+        assert_eq!(user, expected_user);
     }
 }
