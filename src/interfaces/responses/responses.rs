@@ -17,14 +17,24 @@ pub struct ResponseStruct<T> {
 // Errors
 #[derive(Debug, Serialize)]
 pub struct CustomErrorStruct<CustomError> {
-    // pub code: http::StatusCode,
-    pub err: CustomError,
+    pub err: CustomError, // TODO array
 }
 
 #[derive(Debug, Serialize)]
 pub struct CustomError {
-    // pub code: http::StatusCode,
-    pub msg: String,
+    // REFACTOR if possible, use pub code: http::StatusCode,
+    code: u16,
+    msg: String,
+}
+
+pub trait TCustomError {
+    fn new(code: u16, msg: String) -> Self;
+}
+
+impl TCustomError for CustomError {
+    fn new(code: u16, msg: String) -> Self {
+        Self { code, msg }
+    }
 }
 
 // #[derive(Debug, Serialize)]
