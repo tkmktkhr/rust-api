@@ -5,7 +5,7 @@ use crate::{
             get::GetUsersControllerTrait,
             post::{PostUsersController, PostUsersControllerTrait},
         },
-        responses::responses::CustomError,
+        responses::responses::{CustomError, TCustomError},
     },
     interfaces::{
         requests::users::create_user_request::CreateUserReq,
@@ -48,19 +48,20 @@ pub async fn get_user_by_id(path: web::Path<u32>) -> impl Responder {
     println!("{:?}", output);
     // let output_clone = output.clone();
 
-    // TODO Define it other place in order to be used from everywhere.
-    let not_found = CustomError {
-        // code: http::StatusCode::NOT_FOUND,
-        msg: "NOT FOUND".to_string(),
-    };
-
     let res = match output {
-        None => (
-            web::Json(ResponseStruct {
-                res: Res::CustomError(not_found),
-            }),
-            http::StatusCode::NOT_FOUND,
-        ),
+        None => {
+            // TODO Define it other place in order to be used from everywhere.
+            // let not_found = CustomError {
+            //     msg: "NOT FOUND".to_string(),
+            // };
+            let not_found = TCustomError::new(404, "NOT FOUND".to_string());
+            (
+                web::Json(ResponseStruct {
+                    res: Res::CustomError(not_found),
+                }),
+                http::StatusCode::NOT_FOUND,
+            )
+        }
         Some(response) => (
             web::Json(ResponseStruct {
                 res: Res::OutputData(Some(response)),
