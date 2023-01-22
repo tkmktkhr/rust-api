@@ -171,7 +171,6 @@ mod tests {
         assert_eq!(2 + 2, 4);
     }
 
-    // #[test]
     #[actix_rt::test]
     async fn test_get_user() {
         let name = String::from(" def");
