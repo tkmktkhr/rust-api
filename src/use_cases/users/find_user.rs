@@ -146,7 +146,12 @@ impl FindUserInteractor {
     // }
 }
 
-// sample function
+// For View
+struct FindUserPresenter {
+    pub id: u32,
+}
+
+// sample function for unit test.
 fn get_user(id: u32) -> UserEntity {
     UserEntity::new(
         id,
@@ -154,11 +159,6 @@ fn get_user(id: u32) -> UserEntity {
         Some(" def".to_owned()),
         "a@example.com".to_string(),
     )
-}
-
-// For View
-struct FindUserPresenter {
-    pub id: u32,
 }
 
 #[cfg(test)]
